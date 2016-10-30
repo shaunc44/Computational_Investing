@@ -18,12 +18,11 @@ online. The instructions below worked for me.
 
 3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
 
-4. After fortran is done, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal
-
+4. After fortran is done, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal..
 ```
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"..
 ```
-#####*The homebrew download will take a while*
+The homebrew download will take a while
 ```
 brew install pkg-config
 ```
