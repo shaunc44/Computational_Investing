@@ -14,7 +14,6 @@ online. The instructions below worked for me.
 2. Open the terminal and enter:
 ```
 	xcode-select --install
-```
 	*A pop-up window will appear asking you about installing tools, choose install tools, wait for install to finish*
 3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
 
