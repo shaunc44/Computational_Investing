@@ -9,17 +9,29 @@ severely slowed my workflow.
 
 -----------------------------------------------------------------
 ####INSTALLATION INSTRUCTIONS
-1. Install the Xcode command line tools (terminal) from the itunes store (its free)
-2. Next step is to download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
-3. After its done, open the terminal and install this link with your password of your system and enter the subsequent commands in the terminal
+1. Go to spotlight search and search for your terminal
+2. Open the terminal and enter:
+```
+xcode-select --install
+``` 
+A pop-up window will appear asking you about installing tools, choose install tools, wait for install to finish 
+3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
+4. After its done, open the terminal and install this link with your password of your system and enter the subsequent commands in the terminal
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
+This while take a while
+```
 brew install pkg-config
+```
 brew install freetype
+```
 brew install libpng
+```
 sudo easy_install install pip #after this there will be error message but dont worry, keep going
+```
 sudo easy_install pip
+```
 sudo pip install numpy #install numpy
 curl -O http://pypi.python.org/packages/source/Q/QSTK/QSTK-0.2.5.tar.gz #I suggest you to just copy paste it
 tar -zxvf QSTK-0.2.5.tar.gz #untar the packages
