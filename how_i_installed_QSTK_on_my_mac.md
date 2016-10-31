@@ -59,7 +59,7 @@ sudo pip install -e QSTK-0.2.8/
 python QSTK-0.2.8/Examples/Validation.py
 #####*Your output should look like this*
 ```
-![Correct Output](validation_output.pdf)
+![Correct Output](https://github.com/shaunc44/Computational_Investing/blob/master/validation_output.pdf)
 ```
 cd QSTK-0.2.8
 ```
@@ -78,5 +78,5 @@ ls *.pdf
 #####*Try opening the normalized pdf with:*
 ```
 open normalized.pdf
-#####*A graph should open with normalized prices*
 ```
+#####*A graph should open with normalized prices*
