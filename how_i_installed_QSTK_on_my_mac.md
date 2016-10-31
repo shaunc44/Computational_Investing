@@ -19,7 +19,7 @@ online. The instructions below worked for me.
 
 3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
 
-4. After the fortran download is complete, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal..
+4. After the fortran download is complete, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal. Be sure to update the version numbers as new versions are released..
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -43,7 +43,7 @@ sudo easy_install pip
 ```
 sudo pip install numpy
 ```
-#####*Install numpy*
+#####*Installs numpy*
 ```
 curl -O https://github.com/QuantSoftware/QuantSoftwareToolkit/releases/download/0.2.8/QSTK-0.2.8.tar.gz
 ```
@@ -57,7 +57,9 @@ sudo pip install -e QSTK-0.2.8/
 ```
 ```
 python QSTK-0.2.8/Examples/Validation.py
+#####*Your output should look like this*
 ```
+![Correct Output](validation_output.pdf)
 ```
 cd QSTK-0.2.8
 ```
@@ -72,4 +74,9 @@ python tutorial1.py
 ```
 ```
 ls *.pdf
+```
+#####*Try opening the normalized pdf with:*
+```
+open normalized.pdf
+#####*A graph should open with normalized prices*
 ```
