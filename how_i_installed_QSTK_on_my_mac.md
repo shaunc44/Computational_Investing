@@ -11,7 +11,7 @@ online. The instructions below worked for me.
 
 -----------------------------------------------------------------
 ###INSTALLATION INSTRUCTIONS
-1. Go to spotlight search* and search for 'terminal'
+1. Go to spotlight search and search for 'terminal'
 
 2. Open the terminal and enter:  
 ```	xcode-select --install ```  
@@ -23,7 +23,7 @@ online. The instructions below worked for me.
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-	*The homebrew download will take a while*
+#####*The homebrew download will take a while*
 ```
 brew install pkg-config
 ```
