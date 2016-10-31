@@ -36,7 +36,7 @@ brew install libpng
 ```
 sudo easy_install install pip
 ```
-#####*There will be error message but dont worry, keep going*
+#####*There will be an error message but dont worry, keep going*
 ```
 sudo easy_install pip
 ```
