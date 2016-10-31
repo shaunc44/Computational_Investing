@@ -1,6 +1,7 @@
 ##HOW TO INSTALL QSTK ON A MAC
+###Coursera - Computational Investing, Part 1
+###*Dr. Tucker Balch of Georgia Tech*
 ####October 30, 2016
-###Coursera - Computational Investing, Part 1 - Dr. Tucker Balch (GaTech)
 After perusing many websites I finally discovered a way to install
 QSTK on my Macbook Air (SierraOS).  The instructions found at wiki.quantsoftware
 advise students to shy away from the mac installation and instead
@@ -10,15 +11,15 @@ online. The instructions below worked for me.
 
 -----------------------------------------------------------------
 ###INSTALLATION INSTRUCTIONS
-1. Go to *spotlight search* and search for 'terminal'
+1. Go to spotlight search* and search for 'terminal'
 
 2. Open the terminal and enter:  
 ```	xcode-select --install ```  
-	_A pop-up window will appear asking you about installing tools, choose install tools, wait for install to finish_
+	* A pop-up window will appear asking you about installing tools, choose install tools, wait for install to finish
 
 3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
 
-4. After fortran is done, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal..
+4. After the fortran download is complete, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal..
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
