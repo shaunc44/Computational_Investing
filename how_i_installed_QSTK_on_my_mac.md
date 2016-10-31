@@ -60,7 +60,7 @@ python QSTK-0.2.8/Examples/Validation.py
 ```
 
 #####*Your output should look like this:*
-![Validation Output](https://github.com/shaunc44/Computational_Investing/files/562399/validation_output.pdf)
+![](https://cloud.githubusercontent.com/assets/7787405/19863916/73b63b38-9f6c-11e6-97ff-ab4bba6a19f3.png)
 
 ```
 cd QSTK-0.2.8
