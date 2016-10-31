@@ -57,9 +57,9 @@ sudo pip install -e QSTK-0.2.8/
 ```
 ```
 python QSTK-0.2.8/Examples/Validation.py
-#####*Your output should look like this*
 ```
-![Correct Output](https://github.com/shaunc44/Computational_Investing/blob/master/validation_output.pdf)
+#####*Your output should look like this*
+![Correct Output](https://github.com/shaunc44/Computational_Investing/blob/master/validation_output)
 ```
 cd QSTK-0.2.8
 ```
