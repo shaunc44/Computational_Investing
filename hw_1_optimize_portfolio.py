@@ -8,26 +8,7 @@ import pandas as pd
 
 
 ls_symbols = ["GOOG", "AAPL", "GLD", "XOM"]
-#Change dates to HW reqs
-dt_start = dt.datetime(2010, 1, 1)
-dt_end = dt.datetime(2010, 1, 15)
-dt_timeofday = dt.timedelta(hours=16)
-ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
-
-c_dataobj = da.DataAccess('Yahoo')
-ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
-ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
-d_data = dict(zip(ls_keys, ldf_data))
-
-na_price = d_data['close'].values
-
-
-plt.clf()
-plt.plot(ldt_timestamps, na_price)
-
-
-'''
-allocations = [0.4, 0.4, 0.0, 0.2] #should this be a list, and here?
+allocations = [0.2, 0.3, 0.4, 0.1]
 dt_start = dt.datetime(2011, 1, 1)
 dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
@@ -38,11 +19,18 @@ c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
 d_data = dict(zip(ls_keys, ldf_data))
-'''
+
+
+#na means Numpy Array
+na_price = d_data['close'].values
+#normalized prices of each stock so plot isn't skewed
+na_normalized_price = na_price / na_price[0,:]
+
+print na_normalized_price
 
 
 '''
-def simulation():
+def simulate(*args):
 	#put in list??
 	adj_closing_prices = []
 	adj_closing_prices = ls_keys[3]
@@ -55,5 +43,22 @@ def simulation():
 	return sharpe_ratio
 	return total_ret_portfolio
 
-simulation()
+simulate(dt_start, dt_end, ls_symbols, allocations)
+'''
+
+
+'''
+plt.clf() #Clear the plot
+plt.plot(ldt_timestamps, na_price) #plot data
+plt.legend(ls_symbols)
+plt.ylabel('Adjusted Close')
+plt.xlabel('Date')
+plt.savefig('adjustedclose.pdf', format='pdf')
+
+#na_normalized_price = na_price / na_price[0,:]
+#print na_normalized_price
+
+plt.clf() #Clear the plot
+plt.plot(ldt_timestamps, na_normalized_price) #plot data
+plt.savefig('normalized.pdf', format='pdf')
 '''
