@@ -10,7 +10,7 @@ import pandas as pd
 ls_symbols = ["GOOG", "AAPL", "GLD", "XOM"]
 allocations = [0.2, 0.3, 0.4, 0.1]
 dt_start = dt.datetime(2011, 1, 1)
-dt_end = dt.datetime(2011, 12, 31)
+dt_end = dt.datetime(2011, 1, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
@@ -25,8 +25,10 @@ d_data = dict(zip(ls_keys, ldf_data))
 na_price = d_data['close'].values
 #normalized prices of each stock so plot isn't skewed
 na_normalized_price = na_price / na_price[0,:]
-
-print na_normalized_price
+#make copy of normalized_price instead of reference
+na_rets = na_normalized_price.copy()
+print tsu.returnize0(na_rets)
+#print na_normalized_price
 
 
 '''
