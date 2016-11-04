@@ -11,7 +11,7 @@ import numpy as np
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
 allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2011, 1, 1)
-dt_end = dt.datetime(2011, 1, 31)
+dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
@@ -32,25 +32,31 @@ na_normalized_price = na_price / na_price[0,:]
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
-#print daily_returns
+print daily_returns
 
-
+'''
 #Figure out how to apply weights to for loop results below
+weighted_ret = 0
 for i in range(len(allocations)):
-	print np.mean(daily_returns[:,i])
-	print np.std(daily_returns[:,i])
-
+	weighted_ret += np.mean(daily_returns[:,i]) * allocations[i]
+	#print np.std(daily_returns[:,i])
+print weighted_ret
+'''
 #print len(allocations)
 
 
+avg_ret_stock1 = np.mean(daily_returns[:,0])
+avg_ret_stock2 = np.mean(daily_returns[:,1])
+avg_ret_stock3 = np.mean(daily_returns[:,2])
+avg_ret_stock4 = np.mean(daily_returns[:,3])
+
+print avg_ret_stock1 * allocations[0] + avg_ret_stock2 * allocations[1] + avg_ret_stock3 * allocations[2] + avg_ret_stock4 * allocations[3]
 
 
 avg_daily_rets = np.mean(daily_returns)
 #print avg_daily_rets
 stdev_daily_rets = np.std(daily_returns)
 #print stdev_daily_rets
-
-
 
 def simulate(*args):
 	#put in list??
