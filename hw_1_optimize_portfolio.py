@@ -32,9 +32,21 @@ na_normalized_price = na_price / na_price[0,:]
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
+#print daily_returns
+
+
+#Figure out how to apply weights to for loop results below
+for i in range(len(allocations)):
+	print np.mean(daily_returns[:,i])
+	print np.std(daily_returns[:,i])
+
+#print len(allocations)
+
+
+
+
 avg_daily_rets = np.mean(daily_returns)
 #print avg_daily_rets
-
 stdev_daily_rets = np.std(daily_returns)
 #print stdev_daily_rets
 
