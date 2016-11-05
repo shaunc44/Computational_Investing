@@ -24,7 +24,6 @@ d_data = dict(zip(ls_keys, ldf_data))
 
 #na means Numpy Array
 na_price = d_data['close'].values
-
 #normalized prices of each stock so plot isn't skewed
 na_normalized_price = na_price / na_price[0,:]
 #print na_normalized_price
@@ -32,7 +31,7 @@ na_normalized_price = na_price / na_price[0,:]
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
-print daily_returns
+#print len(daily_returns)
 
 '''
 #Figure out how to apply weights to for loop results below
@@ -44,19 +43,29 @@ print weighted_ret
 '''
 #print len(allocations)
 
+annual_ret_stock1 = np.mean(daily_returns[:,0]) * len(daily_returns)
+annual_ret_stock2 = np.mean(daily_returns[:,1]) * len(daily_returns)
+annual_ret_stock3 = np.mean(daily_returns[:,2]) * len(daily_returns)
+annual_ret_stock4 = np.mean(daily_returns[:,3]) * len(daily_returns)
+print annual_ret_stock1
+print annual_ret_stock2
+print annual_ret_stock3
+print annual_ret_stock4
 
-avg_ret_stock1 = np.mean(daily_returns[:,0])
-avg_ret_stock2 = np.mean(daily_returns[:,1])
-avg_ret_stock3 = np.mean(daily_returns[:,2])
-avg_ret_stock4 = np.mean(daily_returns[:,3])
+'''
+print annual_ret_stock1 * allocations[0] + annual_ret_stock2 * allocations[1] + annual_ret_stock3 * allocations[2] + annual_ret_stock4 * allocations[3]
+'''
 
-print avg_ret_stock1 * allocations[0] + avg_ret_stock2 * allocations[1] + avg_ret_stock3 * allocations[2] + avg_ret_stock4 * allocations[3]
-
+print annual_ret_stock1 * allocations[0]
+print annual_ret_stock2 * allocations[1]
+print annual_ret_stock3 * allocations[2]
+print annual_ret_stock4 * allocations[3]
 
 avg_daily_rets = np.mean(daily_returns)
-#print avg_daily_rets
+#print avg_daily_rets * len(daily_returns)
 stdev_daily_rets = np.std(daily_returns)
 #print stdev_daily_rets
+
 
 def simulate(*args):
 	#put in list??
