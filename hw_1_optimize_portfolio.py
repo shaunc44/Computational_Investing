@@ -8,6 +8,17 @@ import pandas as pd
 import numpy as np
 
 
+def simulate(*args):
+	print "Start Date: ", dt_start.strftime("%B %d, %Y")
+	print "End Date: ", dt_end.strftime("%B %d, %Y")
+	print "Symbols: ", ls_symbols
+	print "Optimal Allocations: ", allocations #how to insert optimal allocations?
+	print "Sharpe Ratio: "
+	print "Volatility (stdev of daily rets): ", stdev_daily_rets
+	print "Avg Daily Return: ", avg_daily_rets
+	print "Cumulative Return: "
+
+
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
 allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2011, 1, 1)
@@ -16,6 +27,7 @@ dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
 #clear cache on this line??
+c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
@@ -61,35 +73,11 @@ print annual_ret_stock2 * allocations[1]
 print annual_ret_stock3 * allocations[2]
 print annual_ret_stock4 * allocations[3]
 
+
 avg_daily_rets = np.mean(daily_returns)
 #print avg_daily_rets * len(daily_returns)
 stdev_daily_rets = np.std(daily_returns)
 #print stdev_daily_rets
-
-
-def simulate(*args):
-	#put in list??
-	'''
-	adj_closing_prices = []
-	adj_closing_prices = ls_keys[3]
-	print adj_closing_prices
-	na_price = d_data['close'].values
-	#normalized_price
-	'''
-
-	print "Start Date: ", dt_start.strftime("%B %d, %Y")
-	print "End Date: ", dt_end.strftime("%B %d, %Y")
-	print "Symbols: ", ls_symbols
-	print "Optimal Allocations: ", allocations #how to insert optimal allocations?
-	print "Sharpe Ratio: "
-	print "Volatility (stdev of daily rets): ", stdev_daily_rets
-	print "Avg Daily Return: ", avg_daily_rets
-	print "Cumulative Return: "
-
-
-simulate(dt_start, dt_end, ls_symbols, allocations)
-
-
 
 '''
 plt.clf() #Clear the plot
@@ -106,3 +94,5 @@ plt.clf() #Clear the plot
 plt.plot(ldt_timestamps, na_normalized_price) #plot data
 plt.savefig('normalized.pdf', format='pdf')
 '''
+
+simulate(dt_start, dt_end, ls_symbols, allocations)
