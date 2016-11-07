@@ -10,10 +10,10 @@ import numpy as np
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		avg_daily_rets += np.mean(daily_returns[:,i]) * allocations[i]
-		print avg_daily_rets
+		avg_daily_rets += (np.mean(daily_returns[:,i], dtype=np.float64) * allocations[i])
+		#print allocations[i]
+		#print avg_daily_rets
 	return avg_daily_rets
-
 
 
 def simulate(*args):
@@ -28,13 +28,13 @@ def simulate(*args):
 
 
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
-allocations = [0.4, 0.4, 0.0, 0.2]
+allocations = [1.0, 0.0, 0.0, 0.0]
 dt_start = dt.datetime(2011, 1, 1)
 dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
-#clear cache on this line??
+
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
@@ -43,7 +43,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 
 
 #na means Numpy Array
-na_price = d_data['actual_close'].values
+na_price = d_data['close'].values
 #normalized prices of each stock so plot isn't skewed
 na_normalized_price = na_price / na_price[0,:]
 #print na_normalized_price
@@ -51,7 +51,10 @@ na_normalized_price = na_price / na_price[0,:]
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
-#print len(daily_returns)
+#print daily_returns
+
+#total returns and average return is not correct for Apple
+print np.sum(daily_returns[:,0])
 
 '''
 #Figure out how to apply weights to for loop results below
@@ -113,3 +116,4 @@ plt.savefig('normalized.pdf', format='pdf')
 '''
 
 simulate(dt_start, dt_end, ls_symbols, allocations)
+
