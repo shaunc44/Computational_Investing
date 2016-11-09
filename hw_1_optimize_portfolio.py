@@ -26,9 +26,17 @@ def volatility():
 
 
 def sharpe_ratio():
-	k = math.sqrt(250)
+	k = math.sqrt(252)
 	sharpe = k * (avg_daily_return()/volatility())
 	return sharpe
+
+
+def total_return():
+	tot_ret = 0
+	for i in range(len(ls_symbols)):
+		#tot_ret += np.sum(daily_returns[:,i]) * allocations[i]
+		tot_ret += ((daily_returns[252:252,i]/daily_returns[0,i]) * allocations[i])
+	return tot_ret + 1
 
 
 def simulate(*args):
@@ -39,13 +47,13 @@ def simulate(*args):
 	print "Avg Daily Return: ", avg_daily_return()
 	print "Volatility (stdev of daily rets): ", volatility()
 	print "Sharpe Ratio: ", sharpe_ratio()
-	print "Cumulative Return: "
+	print "Cumulative Return: ", total_return()
 
 
-ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
-allocations = [0.4, 0.4, 0.0, 0.2]
-dt_start = dt.datetime(2011, 1, 1)
-dt_end = dt.datetime(2011, 12, 31)
+ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
+allocations = [0.0, 0.0, 0.0, 1.0]
+dt_start = dt.datetime(2010, 1, 1)
+dt_end = dt.datetime(2010, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
