@@ -35,8 +35,8 @@ def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
 		#tot_ret += np.sum(daily_returns[:,i]) * allocations[i]
-		tot_ret += ((daily_returns[252:252,i]/daily_returns[0,i]) * allocations[i])
-	return tot_ret + 1
+		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * allocations[i] )
+	return tot_ret
 
 
 def simulate(*args):
@@ -74,7 +74,8 @@ na_normalized_price = na_price / na_price[0,:]
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
-print len(daily_returns)
+#print len(daily_returns)
+#print na_rets[-1,3]
 
 
 '''
