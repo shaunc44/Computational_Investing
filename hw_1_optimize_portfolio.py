@@ -35,7 +35,15 @@ def optimal_alloc():
 	#alloc list total must = 1.0 (if statement)
 	#iterate by 0.1 segments
 	#verify sharpe ratio is highest
-	for alloc1 in allocations:
+	allocation = [ 1.0, 0.0 ]
+	opt_sharpe = sharpe_ratio()
+	for x in range(10):
+		allocation[0] -= 0.1
+		allocation[1] += 0.1
+		sr = sharpe_ratio()
+		if sr > opt_sharpe:
+			opt_sharpe = sr
+	return opt_sharpe
 
 
 def total_return():
@@ -57,6 +65,7 @@ def simulate(*args):
 
 
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+#clear the allocations to allow optimizer to run
 allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2011, 1, 1)
 dt_end = dt.datetime(2011, 12, 31)
@@ -73,15 +82,12 @@ d_data = dict(zip(ls_keys, ldf_data))
 
 #na means Numpy Array
 na_price = d_data['close'].values
-#normalized prices of each stock so plot isn't skewed
+#normalize prices to easily compare stocks
 na_normalized_price = na_price / na_price[0,:]
-#print na_normalized_price
 
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
-#print len(daily_returns)
-#print na_rets[-1,3]
 
 #Call simulation program
 simulate(dt_start, dt_end, ls_symbols, allocations)
