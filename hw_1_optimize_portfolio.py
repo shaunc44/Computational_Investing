@@ -30,11 +30,17 @@ def sharpe_ratio():
 	sharpe = k * (avg_daily_return()/volatility())
 	return sharpe
 
+def optimal_alloc():
+	#length of alloc list only 4
+	#alloc list total must = 1.0 (if statement)
+	#iterate by 0.1 segments
+	#verify sharpe ratio is highest
+	for alloc1 in allocations:
+
 
 def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
-		#tot_ret += np.sum(daily_returns[:,i]) * allocations[i]
 		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * allocations[i] )
 	return tot_ret
 
@@ -50,10 +56,10 @@ def simulate(*args):
 	print "Cumulative Return: ", total_return()
 
 
-ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
-allocations = [0.0, 0.0, 0.0, 1.0]
-dt_start = dt.datetime(2010, 1, 1)
-dt_end = dt.datetime(2010, 12, 31)
+ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+allocations = [0.4, 0.4, 0.0, 0.2]
+dt_start = dt.datetime(2011, 1, 1)
+dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
@@ -77,6 +83,8 @@ daily_returns = tsu.returnize0(na_rets)
 #print len(daily_returns)
 #print na_rets[-1,3]
 
+#Call simulation program
+simulate(dt_start, dt_end, ls_symbols, allocations)
 
 '''
 plt.clf() #Clear the plot
@@ -94,5 +102,5 @@ plt.plot(ldt_timestamps, na_normalized_price) #plot data
 plt.savefig('normalized.pdf', format='pdf')
 '''
 
-simulate(dt_start, dt_end, ls_symbols, allocations)
+
 
