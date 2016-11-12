@@ -30,12 +30,12 @@ def sharpe_ratio():
 	sharpe = k * (avg_daily_return()/volatility())
 	return sharpe
 
-def optimal_alloc():
+def optimal_alloc(allocation here???):
 	#length of alloc list only 4
 	#alloc list total must = 1.0 (if statement)
 	#iterate by 0.1 segments
 	#verify sharpe ratio is highest
-	allocation = [ 1.0, 0.0 ]
+	allocation = [1.0, 0.0]
 	opt_sharpe = sharpe_ratio()
 	for x in range(10):
 		allocation[0] -= 0.1
@@ -57,7 +57,7 @@ def simulate(*args):
 	print "Start Date: ", dt_start.strftime("%B %d, %Y")
 	print "End Date: ", dt_end.strftime("%B %d, %Y")
 	print "Symbols: ", ls_symbols
-	print "Optimal Allocations: ", allocations #how to insert optimal allocations?
+	print "Optimal Allocations: ", optimal_alloc() #allocations, how to insert optimal allocations?
 	print "Avg Daily Return: ", avg_daily_return()
 	print "Volatility (stdev of daily rets): ", volatility()
 	print "Sharpe Ratio: ", sharpe_ratio()
