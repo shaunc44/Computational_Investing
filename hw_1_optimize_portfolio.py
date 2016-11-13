@@ -8,6 +8,23 @@ import numpy as np
 import math
 
 
+def optimal_alloc(allocation here???):
+	#length of alloc list only 4
+	#alloc list total must = 1.0 (if statement)
+	#iterate by 0.1 segments
+	#how to iter over 4 parts of list (nested for loops)
+	#verify sharpe ratio is highest
+	allocation = [1.0, 0.0]
+	opt_sharpe = sharpe_ratio()
+	for x in range(10):
+		allocation[0] -= 0.1
+		allocation[1] += 0.1
+		sr = sharpe_ratio()
+		if sr > opt_sharpe:
+			opt_sharpe = sr
+	return opt_sharpe
+
+
 #calculate portfolio daily rets everyday and put in list??
 def avg_daily_return():
 	avg_daily_rets = 0
@@ -29,21 +46,6 @@ def sharpe_ratio():
 	k = math.sqrt(252)
 	sharpe = k * (avg_daily_return()/volatility())
 	return sharpe
-
-def optimal_alloc(allocation here???):
-	#length of alloc list only 4
-	#alloc list total must = 1.0 (if statement)
-	#iterate by 0.1 segments
-	#verify sharpe ratio is highest
-	allocation = [1.0, 0.0]
-	opt_sharpe = sharpe_ratio()
-	for x in range(10):
-		allocation[0] -= 0.1
-		allocation[1] += 0.1
-		sr = sharpe_ratio()
-		if sr > opt_sharpe:
-			opt_sharpe = sr
-	return opt_sharpe
 
 
 def total_return():
@@ -107,6 +109,3 @@ plt.clf() #Clear the plot
 plt.plot(ldt_timestamps, na_normalized_price) #plot data
 plt.savefig('normalized.pdf', format='pdf')
 '''
-
-
-
