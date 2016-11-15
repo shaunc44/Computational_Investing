@@ -7,30 +7,38 @@ import pandas as pd
 import numpy as np
 import math
 
-
+'''
 def sharpe_ratio():
 	k = math.sqrt(252)
-	sharpe = k * (avg_daily_return()/volatility())
+	sharpe = k * ( avg_daily_return() / volatility() )
 	return sharpe
+'''
+
 
 
 def optimal_alloc():
 	#how to iter over 4 parts of list (nested for loops)
 	#verify sharpe ratio is highest
-	allocation = [1.0, 0.0, 0.0, 0.0]
-	opt_sharpe = sharpe_ratio()
+	#opt_sharpe = sharpe_ratio()
 
-	for stock in allocation:
+	for i in allocation:
 		for x in range(10):
-			allocation[stock] -= 0.1
-			allocation[stock+1] += 0.1
-			sr = sharpe_ratio()
-			if sr > opt_sharpe:
-				opt_sharpe = sr
-		return opt_sharpe
-	return allocation #for other functions to work
+			allocation[i] -= 0.1
+			allocation[i+1] += 0.1
+			print allocation
+			#sr = sharpe_ratio()
+			#if sr > opt_sharpe:
+			#	opt_sharpe = sr
+		#return opt_sharpe
+	#return allocation #for other functions to work
 
 
+allocation = [1, 0, 0, 0]
+optimal_alloc()
+
+
+
+'''
 #calculate portfolio daily rets everyday and put in list??
 def avg_daily_return():
 	avg_daily_rets = 0
@@ -68,6 +76,7 @@ def simulate(*args):
 
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
 #clear the allocations to allow optimizer to run
+allocation = [1, 0, 0, 0]
 #allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2011, 1, 1)
 dt_end = dt.datetime(2011, 12, 31)
@@ -93,6 +102,12 @@ daily_returns = tsu.returnize0(na_rets)
 
 #Call simulation program
 simulate(dt_start, dt_end, ls_symbols)
+'''
+
+
+
+
+
 
 '''
 plt.clf() #Clear the plot
