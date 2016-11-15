@@ -8,13 +8,16 @@ import numpy as np
 import math
 
 
+def sharpe_ratio():
+	k = math.sqrt(252)
+	sharpe = k * (avg_daily_return()/volatility())
+	return sharpe
+
+
 def optimal_alloc(allocation here???):
-	#length of alloc list only 4
-	#alloc list total must = 1.0 (if statement)
-	#iterate by 0.1 segments
 	#how to iter over 4 parts of list (nested for loops)
 	#verify sharpe ratio is highest
-	allocation = [1.0, 0.0]
+	allocation = [1.0, 0.0, 0.0, 0.0]
 	opt_sharpe = sharpe_ratio()
 	for x in range(10):
 		allocation[0] -= 0.1
@@ -23,13 +26,14 @@ def optimal_alloc(allocation here???):
 		if sr > opt_sharpe:
 			opt_sharpe = sr
 	return opt_sharpe
+	return allocation #for other functions to work
 
 
 #calculate portfolio daily rets everyday and put in list??
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		avg_daily_rets += (np.mean(daily_returns[:,i]) * allocations[i])
+		avg_daily_rets += (np.mean(daily_returns[:,i]) * allocation[i])
 		#print avg_daily_rets
 	return avg_daily_rets
 
@@ -37,21 +41,15 @@ def avg_daily_return():
 def volatility():
 	stdev_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		stdev_daily_rets = (np.std(daily_returns[:,i]) * allocations[i])
+		stdev_daily_rets = (np.std(daily_returns[:,i]) * allocation[i])
 		#print stdev_daily_rets
 	return stdev_daily_rets
-
-
-def sharpe_ratio():
-	k = math.sqrt(252)
-	sharpe = k * (avg_daily_return()/volatility())
-	return sharpe
 
 
 def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
-		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * allocations[i] )
+		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * allocation[i] )
 	return tot_ret
 
 
@@ -68,7 +66,7 @@ def simulate(*args):
 
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
 #clear the allocations to allow optimizer to run
-allocations = [0.4, 0.4, 0.0, 0.2]
+#allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2011, 1, 1)
 dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
@@ -92,7 +90,7 @@ na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
 
 #Call simulation program
-simulate(dt_start, dt_end, ls_symbols, allocations)
+simulate(dt_start, dt_end, ls_symbols)
 
 '''
 plt.clf() #Clear the plot
