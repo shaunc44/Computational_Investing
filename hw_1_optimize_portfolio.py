@@ -14,18 +14,20 @@ def sharpe_ratio():
 	return sharpe
 
 
-def optimal_alloc(allocation here???):
+def optimal_alloc():
 	#how to iter over 4 parts of list (nested for loops)
 	#verify sharpe ratio is highest
 	allocation = [1.0, 0.0, 0.0, 0.0]
 	opt_sharpe = sharpe_ratio()
-	for x in range(10):
-		allocation[0] -= 0.1
-		allocation[1] += 0.1
-		sr = sharpe_ratio()
-		if sr > opt_sharpe:
-			opt_sharpe = sr
-	return opt_sharpe
+
+	for stock in allocation:
+		for x in range(10):
+			allocation[stock] -= 0.1
+			allocation[stock+1] += 0.1
+			sr = sharpe_ratio()
+			if sr > opt_sharpe:
+				opt_sharpe = sr
+		return opt_sharpe
 	return allocation #for other functions to work
 
 
