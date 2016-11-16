@@ -26,25 +26,22 @@ def optimal_alloc():
 		while i < stop:
 			yield i
 			i += step
+	#for i in drange(0.0, 1.0, 0.1):
+	#	print i
 
-	for i in drange(0.0, 1.0, 0.1):
-		print i
-
-'''
-	for i in allocation:
-		for x in np.arange(0, 1, 0.1):
-			allocation[0] -= x
-			allocation[1] += x
+	for stock in allocation:
+		for i in drange(0.0, 1.0, 0.1):
+			allocation[0] -= i
+			allocation[1] += i
 			print allocation
 			#sr = sharpe_ratio()
 			#if sr > opt_sharpe:
 			#	opt_sharpe = sr
-		#return opt_sharpe
+			#return opt_sharpe
 	#return allocation #for other functions to work
-'''
 
+allocation = [1, 0, 0, 0]
 
-#allocation = [1, 0, 0, 0]
 optimal_alloc()
 
 
