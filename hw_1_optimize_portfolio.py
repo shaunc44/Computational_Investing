@@ -15,37 +15,12 @@ def sharpe_ratio():
 	return sharpe
 
 
-
-
-'''
-def optimal_alloc():
-	#how to iter over 4 parts of list (nested for loops)
-	#verify sharpe ratio is highest
-	#opt_sharpe = sharpe_ratio()
-
-	def drange(start, stop, step):
-		i = start
-		while i < stop:
-			yield i
-			i += step
-	#for i in drange(0.0, 1.0, 0.1):
-	#	print i
-
-	for stock in allocation:
-		for i in drange(0.0, 1.0, 0.1):
-			allocation[0] -= i
-			allocation[1] += i
-			print allocation
-			#sr = sharpe_ratio()
-			#if sr > opt_sharpe:
-			#	opt_sharpe = sr
-			#return opt_sharpe
-	#return allocation #for other functions to work
-
-allocation = [1, 0, 0, 0]
-
-optimal_alloc()
-'''
+def volatility():
+	stdev_daily_rets = 0
+	for i in range(len(ls_symbols)):
+		stdev_daily_rets += (np.std(daily_returns[:,i]) * allocation[i])
+		#print stdev_daily_rets
+	return stdev_daily_rets
 
 
 #calculate portfolio daily rets everyday and put in list??
@@ -55,14 +30,6 @@ def avg_daily_return():
 		avg_daily_rets += (np.mean(daily_returns[:,i]) * allocation[i])
 		#print avg_daily_rets
 	return avg_daily_rets
-
-
-def volatility():
-	stdev_daily_rets = 0
-	for i in range(len(ls_symbols)):
-		stdev_daily_rets += (np.std(daily_returns[:,i]) * allocation[i])
-		#print stdev_daily_rets
-	return stdev_daily_rets
 
 
 def total_return():
@@ -83,20 +50,29 @@ def simulate(*args):
 	print "Cumulative Return: ", total_return()
 
 
-combo_01 = [0.0, 0.0, 0.0, 1.0]
-allocations = list(itertools.permutations(combo_01))
-allocation = list(allocations[0])
-
 
 ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
-#clear the allocations to allow optimizer to run
-#allocation = [1, 0, 0, 0]
-#allocations = [0.4, 0.4, 0.0, 0.2]
 dt_start = dt.datetime(2010, 1, 1)
 dt_end = dt.datetime(2010, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
+
+allocation = []
+combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
+for i in range(len(combos)):
+	allocations = list(itertools.permutations(combos[i]))
+	print allocations
+	allocation = list(allocations[0])
+	print allocation
+
+'''
+combo_01 = [0.0, 0.0, 0.0, 1.0]
+allocations = list(itertools.permutations(combo_01))
+print allocations
+allocation = list(allocations[0])
+print allocation
+'''
 
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
@@ -148,8 +124,6 @@ allocation = [1, 0, 0, 0]
 
 optimal_alloc()
 '''
-
-
 
 
 
