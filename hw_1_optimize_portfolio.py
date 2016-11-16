@@ -60,7 +60,7 @@ def avg_daily_return():
 def volatility():
 	stdev_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		stdev_daily_rets = (np.std(daily_returns[:,i]) * allocation[i])
+		stdev_daily_rets += (np.std(daily_returns[:,i]) * allocation[i])
 		#print stdev_daily_rets
 	return stdev_daily_rets
 
@@ -77,23 +77,23 @@ def simulate(*args):
 	print "End Date: ", dt_end.strftime("%B %d, %Y")
 	print "Symbols: ", ls_symbols
 	print "Optimal Allocations: ", allocation #allocations, how to insert optimal allocations?
-	print "Avg Daily Return: ", avg_daily_return()
-	print "Volatility (stdev of daily rets): ", volatility()
 	print "Sharpe Ratio: ", sharpe_ratio()
+	print "Volatility (stdev of daily rets): ", volatility()
+	print "Avg Daily Return: ", avg_daily_return()
 	print "Cumulative Return: ", total_return()
 
 
-combo_01 = [1.0, 0.0, 0.0, 0.0]
+combo_01 = [0.0, 0.0, 0.0, 1.0]
 allocations = list(itertools.permutations(combo_01))
 allocation = list(allocations[0])
 
 
-ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
 #clear the allocations to allow optimizer to run
 #allocation = [1, 0, 0, 0]
 #allocations = [0.4, 0.4, 0.0, 0.2]
-dt_start = dt.datetime(2011, 1, 1)
-dt_end = dt.datetime(2011, 12, 31)
+dt_start = dt.datetime(2010, 1, 1)
+dt_end = dt.datetime(2010, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
