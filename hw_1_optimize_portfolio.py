@@ -20,7 +20,7 @@ def sharpe_ratio():
 def volatility():
 	stdev_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		stdev_daily_rets += (np.std(daily_returns[:,i]) * allocation[i])
+		stdev_daily_rets += ( np.std(daily_returns[:,i]) * allocation[i] )
 	return stdev_daily_rets
 
 
@@ -28,7 +28,7 @@ def volatility():
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
-		avg_daily_rets += (np.mean(daily_returns[:,i]) * allocation[i])
+		avg_daily_rets += ( np.mean(daily_returns[:,i]) * allocation[i] )
 	return avg_daily_rets
 
 
@@ -46,7 +46,7 @@ def simulate(*args):
 	print "End Date: ", dt_end.strftime("%B %d, %Y")
 	print "Symbols: ", ls_symbols
 	print "Optimal Allocations: ", allocation
-	print "Sharpe Ratio: ", sharpe_ratio()
+	print "Sharpe Ratio: ", opt_sharpe #sharpe_ratio()
 	print "Volatility (stdev of daily rets): ", volatility()
 	print "Avg Daily Return: ", avg_daily_return()
 	print "Cumulative Return: ", total_return()
@@ -60,13 +60,27 @@ dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
 
-#allocation inputs and for-loops to determine optimal allocation
+#allocation inputs
 allocation = []
 combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
+
+
+#for-loops to determine optimal allocation
+#need to enter initial allocation somewhere to run sharpe????
+#maybe just set opt_sharpe to 0 initially
+opt_sharpe = 0 #put this inside of the for-loop???
 for i in range(len(combos)):
 	allocations = list(itertools.permutations(combos[i]))
-	print allocations
+	#print allocations
+	#print len(allocations)
+
+	#put another for-loop here to iterate over possible combos???
 	allocation = list(allocations[0])
+
+	sr = sharpe_ratio()
+	if sr > opt_sharpe:
+		opt_sharpe = sr
+	return opt_sharpe
 	print allocation
 
 '''
