@@ -45,7 +45,7 @@ def simulate(*args):
 	print "Start Date: ", dt_start.strftime("%B %d, %Y")
 	print "End Date: ", dt_end.strftime("%B %d, %Y")
 	print "Symbols: ", ls_symbols
-	print "Optimal Allocations: ", allocation
+	print "Optimal Allocations: ", opt_alloc
 	print "Sharpe Ratio: ", opt_sharpe #sharpe_ratio()
 	print "Volatility (stdev of daily rets): ", volatility()
 	print "Avg Daily Return: ", avg_daily_return()
@@ -79,17 +79,14 @@ daily_returns = tsu.returnize0(na_rets)
 
 #allocation inputs
 allocation = []
-combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
+combos = [[1.0, 0.0, 0.0, 0.0], [0.9, 0.1, 0.0, 0.0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0.0, 0.0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0.0], [0.7, 0.3, 0.0, 0.0], [0.6, 0.4, 0.0, 0.0], [0.6, 0.3, 0.1, 0.0], [0.6, 0.2, 0.2, 0.0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0.0, 0.0], [0.5, 0.4, 0.1, 0.0], [0.5, 0.3, 0.2, 0.0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0.0], [0.4, 0.3, 0.3, 0.0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
 
 
-#for-loops to determine optimal allocation
-#need to enter initial allocation somewhere to run sharpe????
-#maybe just set opt_sharpe to 0 initially
 opt_sharpe = 0 #put this inside of the for-loop???
-
 
 #Create function to process allocations
 for i in range(len(combos)):
+	#permutations create every arrangement for each allocation from combos
 	allocations = list(itertools.permutations(combos[i]))
 	#print allocations
 	#print len(allocations)
@@ -99,29 +96,10 @@ for i in range(len(combos)):
 		#print temp_sharpe
 		if temp_sharpe > opt_sharpe:
 			opt_sharpe = temp_sharpe
-
-return opt_sharpe
-		#else:
-#return opt_sharpe
-
-
-'''
-	sr = sharpe_ratio()
-	if sr > opt_sharpe:
-		opt_sharpe = sr
-	return opt_sharpe
-
-combo_01 = [0.0, 0.0, 0.0, 1.0]
-allocations = list(itertools.permutations(combo_01))
-print allocations
-allocation = list(allocations[0])
-print allocation
-'''
+			opt_alloc = allocation
 
 #Call simulation program
 simulate(dt_start, dt_end, ls_symbols)
-
-
 
 
 
