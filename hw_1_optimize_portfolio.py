@@ -9,29 +9,30 @@ import math
 import itertools
 
 
+#sharpe ratio of the portfolio
 def sharpe_ratio():
 	k = math.sqrt(252)
 	sharpe = k * ( avg_daily_return() / volatility() )
 	return sharpe
 
 
+#standard deviation of the portfolio
 def volatility():
 	stdev_daily_rets = 0
 	for i in range(len(ls_symbols)):
 		stdev_daily_rets += (np.std(daily_returns[:,i]) * allocation[i])
-		#print stdev_daily_rets
 	return stdev_daily_rets
 
 
-#calculate portfolio daily rets everyday and put in list??
+#avg daily portfolio return
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
 		avg_daily_rets += (np.mean(daily_returns[:,i]) * allocation[i])
-		#print avg_daily_rets
 	return avg_daily_rets
 
 
+#total portfolio return
 def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
@@ -39,18 +40,19 @@ def total_return():
 	return tot_ret
 
 
+#simulation function to output data from input funcions 
 def simulate(*args):
 	print "Start Date: ", dt_start.strftime("%B %d, %Y")
 	print "End Date: ", dt_end.strftime("%B %d, %Y")
 	print "Symbols: ", ls_symbols
-	print "Optimal Allocations: ", allocation #allocations, how to insert optimal allocations?
+	print "Optimal Allocations: ", allocation
 	print "Sharpe Ratio: ", sharpe_ratio()
 	print "Volatility (stdev of daily rets): ", volatility()
 	print "Avg Daily Return: ", avg_daily_return()
 	print "Cumulative Return: ", total_return()
 
 
-
+#inputs (stock symbols, dates)
 ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
 dt_start = dt.datetime(2010, 1, 1)
 dt_end = dt.datetime(2010, 12, 31)
@@ -58,6 +60,7 @@ dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
 
+#allocation inputs and for-loops to determine optimal allocation
 allocation = []
 combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
 for i in range(len(combos)):
@@ -74,25 +77,47 @@ allocation = list(allocations[0])
 print allocation
 '''
 
+#pull data from Yahoo Finance
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
 ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
 d_data = dict(zip(ls_keys, ldf_data))
 
+
 #na means Numpy Array
 na_price = d_data['close'].values
 #normalize prices to easily compare stocks
 na_normalized_price = na_price / na_price[0,:]
-
 #make copy of normalized_price instead of reference
 na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
+
 
 #Call simulation program
 simulate(dt_start, dt_end, ls_symbols)
 
 
+
+
+
+
+#Try to set this up later when you have more time
+'''
+plt.clf() #Clear the plot
+plt.plot(ldt_timestamps, na_price) #plot data
+plt.legend(ls_symbols)
+plt.ylabel('Adjusted Close')
+plt.xlabel('Date')
+plt.savefig('adjustedclose.pdf', format='pdf')
+
+#na_normalized_price = na_price / na_price[0,:]
+#print na_normalized_price
+
+plt.clf() #Clear the plot
+plt.plot(ldt_timestamps, na_normalized_price) #plot data
+plt.savefig('normalized.pdf', format='pdf')
+'''
 
 
 '''
@@ -123,22 +148,4 @@ def optimal_alloc():
 allocation = [1, 0, 0, 0]
 
 optimal_alloc()
-'''
-
-
-
-'''
-plt.clf() #Clear the plot
-plt.plot(ldt_timestamps, na_price) #plot data
-plt.legend(ls_symbols)
-plt.ylabel('Adjusted Close')
-plt.xlabel('Date')
-plt.savefig('adjustedclose.pdf', format='pdf')
-
-#na_normalized_price = na_price / na_price[0,:]
-#print na_normalized_price
-
-plt.clf() #Clear the plot
-plt.plot(ldt_timestamps, na_normalized_price) #plot data
-plt.savefig('normalized.pdf', format='pdf')
 '''
