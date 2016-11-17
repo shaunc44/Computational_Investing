@@ -60,37 +60,6 @@ dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
 
-#allocation inputs
-allocation = []
-combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
-
-
-#for-loops to determine optimal allocation
-#need to enter initial allocation somewhere to run sharpe????
-#maybe just set opt_sharpe to 0 initially
-opt_sharpe = 0 #put this inside of the for-loop???
-for i in range(len(combos)):
-	allocations = list(itertools.permutations(combos[i]))
-	#print allocations
-	#print len(allocations)
-
-	#put another for-loop here to iterate over possible combos???
-	allocation = list(allocations[0])
-
-	sr = sharpe_ratio()
-	if sr > opt_sharpe:
-		opt_sharpe = sr
-	return opt_sharpe
-	print allocation
-
-'''
-combo_01 = [0.0, 0.0, 0.0, 1.0]
-allocations = list(itertools.permutations(combo_01))
-print allocations
-allocation = list(allocations[0])
-print allocation
-'''
-
 #pull data from Yahoo Finance
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
@@ -108,6 +77,47 @@ na_rets = na_normalized_price.copy()
 daily_returns = tsu.returnize0(na_rets)
 
 
+#allocation inputs
+allocation = []
+combos = [[1, 0, 0, 0], [0.9, 0.1, 0, 0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0, 0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0], [0.7, 0.3, 0, 0], [0.6, 0.4, 0, 0], [0.6, 0.3, 0.1, 0], [0.6, 0.2, 0.2, 0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0, 0], [0.5, 0.4, 0.1, 0], [0.5, 0.3, 0.2, 0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0], [0.4, 0.3, 0.3, 0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
+
+
+#for-loops to determine optimal allocation
+#need to enter initial allocation somewhere to run sharpe????
+#maybe just set opt_sharpe to 0 initially
+opt_sharpe = 0 #put this inside of the for-loop???
+
+
+#Create function to process allocations
+for i in range(len(combos)):
+	allocations = list(itertools.permutations(combos[i]))
+	#print allocations
+	#print len(allocations)
+	for j in range(len(allocations)):
+		allocation = list(allocations[j])
+		temp_sharpe = sharpe_ratio()
+		#print temp_sharpe
+		if temp_sharpe > opt_sharpe:
+			opt_sharpe = temp_sharpe
+
+return opt_sharpe
+		#else:
+#return opt_sharpe
+
+
+'''
+	sr = sharpe_ratio()
+	if sr > opt_sharpe:
+		opt_sharpe = sr
+	return opt_sharpe
+
+combo_01 = [0.0, 0.0, 0.0, 1.0]
+allocations = list(itertools.permutations(combo_01))
+print allocations
+allocation = list(allocations[0])
+print allocation
+'''
+
 #Call simulation program
 simulate(dt_start, dt_end, ls_symbols)
 
@@ -115,9 +125,8 @@ simulate(dt_start, dt_end, ls_symbols)
 
 
 
-
-#Try to set this up later when you have more time
 '''
+#Try to set this up later when you have more time
 plt.clf() #Clear the plot
 plt.plot(ldt_timestamps, na_price) #plot data
 plt.legend(ls_symbols)
@@ -133,33 +142,3 @@ plt.plot(ldt_timestamps, na_normalized_price) #plot data
 plt.savefig('normalized.pdf', format='pdf')
 '''
 
-
-'''
-def optimal_alloc():
-	#how to iter over 4 parts of list (nested for loops)
-	#verify sharpe ratio is highest
-	#opt_sharpe = sharpe_ratio()
-
-	def drange(start, stop, step):
-		i = start
-		while i < stop:
-			yield i
-			i += step
-	#for i in drange(0.0, 1.0, 0.1):
-	#	print i
-
-	for stock in allocation:
-		for i in drange(0.0, 1.0, 0.1):
-			allocation[0] -= i
-			allocation[1] += i
-			print allocation
-			#sr = sharpe_ratio()
-			#if sr > opt_sharpe:
-			#	opt_sharpe = sr
-			#return opt_sharpe
-	#return allocation #for other functions to work
-
-allocation = [1, 0, 0, 0]
-
-optimal_alloc()
-'''
