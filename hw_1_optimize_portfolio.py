@@ -81,19 +81,16 @@ daily_returns = tsu.returnize0(na_rets)
 allocation = []
 combos = [[1.0, 0.0, 0.0, 0.0], [0.9, 0.1, 0.0, 0.0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0.0, 0.0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0.0], [0.7, 0.3, 0.0, 0.0], [0.6, 0.4, 0.0, 0.0], [0.6, 0.3, 0.1, 0.0], [0.6, 0.2, 0.2, 0.0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0.0, 0.0], [0.5, 0.4, 0.1, 0.0], [0.5, 0.3, 0.2, 0.0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0.0], [0.4, 0.3, 0.3, 0.0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
 
-
 opt_sharpe = 0 #put this inside of the for-loop???
-
 #Create function to process allocations
 for i in range(len(combos)):
 	#permutations create every arrangement for each allocation from combos
 	allocations = list(itertools.permutations(combos[i]))
-	#print allocations
-	#print len(allocations)
+
 	for j in range(len(allocations)):
 		allocation = list(allocations[j])
 		temp_sharpe = sharpe_ratio()
-		#print temp_sharpe
+
 		if temp_sharpe > opt_sharpe:
 			opt_sharpe = temp_sharpe
 			opt_alloc = allocation
