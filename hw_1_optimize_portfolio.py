@@ -21,6 +21,7 @@ def volatility():
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
+		#why does opt_alloc not work here instead of allocation????
 		avg_daily_rets += ( np.mean(daily_returns[:,i]) * allocation[i] )
 	return avg_daily_rets
 
@@ -36,7 +37,7 @@ def sharpe_ratio():
 def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
-		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * allocation[i] )
+		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * opt_alloc[i] )
 	return tot_ret
 
 
@@ -79,6 +80,7 @@ daily_returns = tsu.returnize0(na_rets)
 
 #allocation inputs
 allocation = []
+opt_alloc = []
 combos = [[1.0, 0.0, 0.0, 0.0], [0.9, 0.1, 0.0, 0.0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0.0, 0.0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0.0], [0.7, 0.3, 0.0, 0.0], [0.6, 0.4, 0.0, 0.0], [0.6, 0.3, 0.1, 0.0], [0.6, 0.2, 0.2, 0.0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0.0, 0.0], [0.5, 0.4, 0.1, 0.0], [0.5, 0.3, 0.2, 0.0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0.0], [0.4, 0.3, 0.3, 0.0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
 
 opt_sharpe = 0 #put this inside of the for-loop???
