@@ -13,6 +13,7 @@ import itertools
 def volatility():
 	stdev_daily_rets = 0
 	for i in range(len(ls_symbols)):
+		#print i
 		stdev_daily_rets += ( np.std(daily_returns[:,i]) * allocation[i] )
 	return stdev_daily_rets
 
@@ -21,8 +22,10 @@ def volatility():
 def avg_daily_return():
 	avg_daily_rets = 0
 	for i in range(len(ls_symbols)):
+		#print i
 		#why does opt_alloc not work here instead of allocation????
-		avg_daily_rets += ( np.mean(daily_returns[:,i]) * allocation[i] )
+		avg_daily_rets += ( (np.mean(daily_returns[:,i])) * allocation[i] )
+		#print opt_alloc
 	return avg_daily_rets
 
 
@@ -37,6 +40,7 @@ def sharpe_ratio():
 def total_return():
 	tot_ret = 0
 	for i in range(len(ls_symbols)):
+		#print i
 		tot_ret += ( (na_price[-1,i]/na_price[0,i]) * opt_alloc[i] )
 	return tot_ret
 
