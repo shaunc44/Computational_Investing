@@ -26,6 +26,7 @@ def avg_daily_return():
 		#why does opt_alloc not work here instead of allocation????
 		avg_daily_rets += ( (np.mean(daily_returns[:,i])) * allocation[i] )
 		#print opt_alloc, the first 4 iterations are blank so maybe this is why python is throwing an 'index - out of range' error
+		#print opt_alloc
 	return avg_daily_rets
 
 
@@ -84,7 +85,7 @@ daily_returns = tsu.returnize0(na_rets)
 
 #allocation inputs
 allocation = []
-opt_alloc = []
+opt_alloc = [1.0, 0.0, 0.0, 0.0]
 combos = [[1.0, 0.0, 0.0, 0.0], [0.9, 0.1, 0.0, 0.0], [0.8, 0.1, 0.1, 0], [0.8, 0.2, 0.0, 0.0], [0.7, 0.1, 0.1, 0.1], [0.7, 0.2, 0.1, 0.0], [0.7, 0.3, 0.0, 0.0], [0.6, 0.4, 0.0, 0.0], [0.6, 0.3, 0.1, 0.0], [0.6, 0.2, 0.2, 0.0], [0.6, 0.2, 0.1, 0.1], [0.5, 0.5, 0.0, 0.0], [0.5, 0.4, 0.1, 0.0], [0.5, 0.3, 0.2, 0.0], [0.5, 0.3, 0.1, 0.1], [0.5, 0.2, 0.2, 0.1], [0.4, 0.4, 0.2, 0.0], [0.4, 0.3, 0.3, 0.0], [0.4, 0.3, 0.2, 0.1], [0.4, 0.2, 0.2, 0.2]]
 
 opt_sharpe = 0 #put this inside of the for-loop???
@@ -95,14 +96,15 @@ for i in range(len(combos)):
 
 	for j in range(len(allocations)):
 		allocation = list(allocations[j])
+		#opt_alloc = allocation
 		temp_sharpe = sharpe_ratio()
 
 		if temp_sharpe > opt_sharpe:
 			opt_sharpe = temp_sharpe
 			opt_alloc = allocation
 
-print opt_alloc  #why does python not like you, opt_alloc??????
-print allocation
+#print opt_alloc  #why does python not like you, opt_alloc??????
+#print allocation
 
 
 #Call simulation program
