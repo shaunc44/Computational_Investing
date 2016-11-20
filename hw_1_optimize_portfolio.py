@@ -25,7 +25,7 @@ def avg_daily_return():
 		#print i
 		#why does opt_alloc not work here instead of allocation????
 		avg_daily_rets += ( (np.mean(daily_returns[:,i])) * allocation[i] )
-		#print opt_alloc
+		#print opt_alloc, the first 4 iterations are blank so maybe this is why python is throwing an 'index - out of range' error
 	return avg_daily_rets
 
 
