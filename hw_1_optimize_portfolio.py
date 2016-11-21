@@ -97,14 +97,15 @@ for i in range(len(combos)):
 	for j in range(len(allocations)):
 		allocation = list(allocations[j])
 		temp_sharpe = sharpe_ratio()
-		print temp_sharpe
+		#print temp_sharpe
 
 		if temp_sharpe > opt_sharpe:
 			opt_sharpe = temp_sharpe
 			opt_alloc = allocation
 
-print opt_alloc  #why does python not like you, opt_alloc??????
-print allocation
+#print opt_alloc  #why does python not like you, opt_alloc??????
+#print allocation
+allocation = opt_alloc
 
 
 #Call simulation program
