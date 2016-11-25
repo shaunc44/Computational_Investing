@@ -53,9 +53,9 @@ def simulate(*args):
 
 
 #inputs (stock symbols, dates)
-ls_symbols = ['AXP', 'HPQ', 'IBM', 'HNZ']
-dt_start = dt.datetime(2010, 1, 1)
-dt_end = dt.datetime(2010, 12, 31)
+ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+dt_start = dt.datetime(2011, 1, 1)
+dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
