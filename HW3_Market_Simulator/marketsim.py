@@ -12,6 +12,10 @@ for row in orders_reader:
 	dates.append(row[0:3])
 	symbols.append(row[3])
 
+dates = list(set(dates))
+symbols = list(set(symbols))
+
+
 print dates
 print symbols
 
