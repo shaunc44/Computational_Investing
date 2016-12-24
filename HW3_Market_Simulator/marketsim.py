@@ -12,11 +12,11 @@ for row in orders_reader:
 	dates.append(row[0:3])
 	symbols.append(row[3])
 
+#Remove duplicates from lists (why??)
 #dates = set(dates)
 #symbols = list(set(symbols))
 
-#print tuple(dates)
-#print set(dates)
+
 print dates
 print symbols
 
