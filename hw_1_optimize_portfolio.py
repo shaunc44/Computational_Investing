@@ -59,6 +59,7 @@ dt_end = dt.datetime(2011, 12, 31)
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 
+#print dt_start
 
 #pull data from Yahoo Finance
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
