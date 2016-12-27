@@ -14,11 +14,19 @@ for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
 
-print orders_unique[2][2]
+#Create symbols list
+symbol_list = []
+for sym in orders_unique:
+	symbol_list.append(sym[3])
+#print symbol_list
 
-#Create symbols list?
+#Create date list
+date_list = []
+for date in orders_unique:
+	date_list.append(date[0:3])
+#print date_list
 
-#Create date list?
+
 
 
 #marketsim(cash, orders_file)
