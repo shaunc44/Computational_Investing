@@ -1,7 +1,7 @@
 import csv
 
 
-orders_reader = csv.reader(open('orders.csv', 'rU'), delimiter=',')
+orders_reader = csv.reader(open('orders_test.csv', 'rU'), delimiter=',')
 
 #Create orders list
 orders_list = []
@@ -18,13 +18,13 @@ for sublist in orders_list:
 symbol_list = []
 for sym in orders_unique:
 	symbol_list.append(sym[3])
-#print symbol_list
+print symbol_list
 
 #Create date list
 date_list = []
 for date in orders_unique:
 	date_list.append(date[0:3])
-#print date_list
+print date_list
 
 
 
