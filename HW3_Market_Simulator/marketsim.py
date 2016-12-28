@@ -1,11 +1,11 @@
 import csv
 
 
-orders_reader = csv.reader(open('orders_test.csv', 'rU'), delimiter=',')
+trades = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 
 #Create orders list
 orders_list = []
-for row in orders_reader:
+for row in trades:
 	orders_list.append(row)
 
 #Remove duplicates from orders list
@@ -14,18 +14,15 @@ for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
 
-#Create symbols list
+#Create symbols & dates list
 symbol_list = []
-for sym in orders_unique:
-	symbol_list.append(sym[3])
-print symbol_list
-
-#Create date list
 date_list = []
-for date in orders_unique:
-	date_list.append(date[0:3])
-print date_list
+for row in orders_unique:
+	symbol_list.append(row[3])
+	date_list.append(row[0:3])
 
+#print symbol_list
+#print date_list
 
 
 
