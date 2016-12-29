@@ -25,14 +25,29 @@ for row in orders_unique:
 	date_list.append(row[0:3])
 
 #print symbol_list
-print date_list
+#print date_list
+
+date_list2 = []
+for i in date_list:
+	print i
+	#date_list2.append(map(int(i)))
+
+#date_list = map(int, date_list)
+#date_list = [int(i) for i in date_list]
+print date_list2
+
 
 #Put first and last date in a variable
 begin_date = min(date_list)
 print begin_date
 
-end_date = min(date_list)
+end_date = max(date_list)
 print end_date
+
+if date_list[13] > date_list[12]:
+	print date_list[13]
+else:
+	print date_list[12]
 
 
 #use NYSE dates function to create array with right number of elements for each date used in test
