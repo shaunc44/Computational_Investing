@@ -40,8 +40,13 @@ begin_date = min(date_list2)
 end_date = max(date_list2)
 
 
-
 #use NYSE dates function to create array with right number of elements for each date used in test
+#Use only one nyse timestamp below *******
+ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
+ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
+
+
+
 #Use adjusted close
 #Read data into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #Iterate over orders, check prices, update cash($ not invested)
