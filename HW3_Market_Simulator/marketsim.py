@@ -46,6 +46,10 @@ end_date = max(date_list2)
 
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Use only one nyse timestamp below *******
+ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
+dt_start = dt.datetime(2011, 1, 1)
+dt_end = dt.datetime(2011, 12, 31)
+dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
 
