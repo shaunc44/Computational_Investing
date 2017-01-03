@@ -43,12 +43,15 @@ for i in date_list:
 begin_date = min(date_list2)
 end_date = max(date_list2)
 
+print begin_date
+print end_date
+
 
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Use only one nyse timestamp below *******
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM']
-dt_start = dt.datetime(2011, 1, 1)
-dt_end = dt.datetime(2011, 12, 31)
+dt_start = dt.datetime(2011, 1, 1) #add plus 1 here?
+dt_end = dt.datetime(2011, 12, 31) #and here to?
 dt_timeofday = dt.timedelta(hours=16)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt_timeofday)
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
