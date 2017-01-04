@@ -1,9 +1,10 @@
 import csv
+import pandas as pd
 import numpy as np
+import datetime as dt
 import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.tsutil as tsu
 import QSTK.qstkutil.DataAccess as da
-import datetime as dt
 
 
 trades = csv.reader(open('orders.csv', 'rU'), delimiter=',')
@@ -49,8 +50,8 @@ end_date = max(date_list2)
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Use only one nyse timestamp below *******
 ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM'] # = symbol_list
-dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2] - 1 ) #add plus 1 here?, = begin_date
-dt_end = dt.datetime( end_date[0], end_date[1], end_date[2] + 1 ) #and here too?
+dt_start = dt.datetime( begin_date[0], begin_date[1], (begin_date[2] - 1) ) #add plus 1 here?, = begin_date
+dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) ) #and here too?
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
 
 print symbol_list
