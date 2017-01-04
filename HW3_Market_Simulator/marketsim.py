@@ -9,7 +9,6 @@ import QSTK.qstkutil.DataAccess as da
 
 trades = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 
-#Create a NUMPY array for the dates list? orders list?
 
 #Create orders list
 orders_list = []
@@ -25,39 +24,45 @@ for sublist in orders_list:
 
 
 #Create symbols & dates list
-symbol_list = []
-date_list = []
+ls_symbols = [] #remove duplicate symbols??????
+ls_dates = []
 for row in orders_unique:
-	symbol_list.append(row[3])
-	date_list.append(row[0:3])
+	ls_symbols.append(row[3])
+	ls_dates.append(row[0:3])
 
 
 #Convert date list to list of ints
-date_list2 = []
-for i in date_list:
-	#print map(int, i)
-	date_list2.append(map(int, i))
+ls_date_ints = []
+for i in ls_dates:
+	ls_date_ints.append(map(int, i))
 
 
-#Put first and last date in a variable
-#Build NUMPY ARRAY for these dates??????????????
-begin_date = min(date_list2)
-#print begin_date
-#begin_date = begin_date - 1
-end_date = max(date_list2)
+#Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
+begin_date = min(ls_date_ints)
+end_date = max(ls_date_ints)
 
 
 #use NYSE dates function to create array with right number of elements for each date used in test
-#Use only one nyse timestamp below *******
-ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM'] # = symbol_list
-dt_start = dt.datetime( begin_date[0], begin_date[1], (begin_date[2] - 1) ) #add plus 1 here?, = begin_date
-dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) ) #and here too?
+#ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM'] # = symbol_list
+#Subtract 3 from the start date to get previous adj close
+dt_start = dt.datetime( begin_date[0], begin_date[1], (begin_date[2]) )
+#Add 1 to end date to get adj close price
+dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
 
-print symbol_list
-#print ls_symbols
+
+#pull data from Yahoo Finance
+c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
+c_dataobj = da.DataAccess('Yahoo')
+ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
+ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
+d_data = dict(zip(ls_keys, ldf_data))
+
+
+print ls_symbols
 print dt_start
 print dt_end
+print ldt_timestamps
 
 
 
