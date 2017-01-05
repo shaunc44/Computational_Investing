@@ -7,12 +7,12 @@ import QSTK.qstkutil.tsutil as tsu
 import QSTK.qstkutil.DataAccess as da
 
 
-trades = csv.reader(open('orders.csv', 'rU'), delimiter=',')
+orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 
 
 #Create orders list
 orders_list = []
-for row in trades:
+for row in orders:
 	orders_list.append(row)
 
 
@@ -21,6 +21,8 @@ orders_unique = []
 for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
+
+#print orders_unique
 
 
 #Create symbols & dates list
@@ -48,14 +50,18 @@ for i in ls_dates:
 begin_date = min(ls_date_ints)
 end_date = max(ls_date_ints)
 
+print begin_date
 
 #use NYSE dates function to create array with right number of elements for each date used in test
-#ls_symbols = ['AAPL', 'GLD', 'GOOG', 'XOM'] # = symbol_list
 #Subtract 3 from the start date to get previous adj close
-dt_start = dt.datetime( begin_date[0], begin_date[1], (begin_date[2]) )
+dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2])
+print dt_start
 #Add 1 to end date to get adj close price
 dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
+#print ldt_timestamps[9]
+
+ts_date = dt.datetime( dt_start, dt.timedelta(hours=16) )
 
 
 #pull data from Yahoo Finance
@@ -70,13 +76,36 @@ d_data = dict(zip(ls_keys, ldf_data))
 #Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
-print prices_array[ls_sym_unique[0]]
+#print prices_array
 
 
-#Iterate over orders, check prices, update cash($ not invested)
+#Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
+#Need to compare the date from orders file vs dates in timestamps to run the cash for loop
+cash = 1000000
+'''
+for order in orders_unique:
+	if orders_unique[4] = 'Buy':
+		cash = cash - orders_unique[5] * price???
+'''
+#prices_array[ls_sym_unique[]]
 
 
+
+'''
+for i in ldt_timestamps:
+	if ldt_timestamps[i] == ls_date_ints[i]:
+		print 'true'
+	else:
+		print 'false'
+'''
+
+
+#Create a value array (equal values of all equites you are holding)
 
 
 #marketsim(cash, orders_file)
+
+
+
+
 
