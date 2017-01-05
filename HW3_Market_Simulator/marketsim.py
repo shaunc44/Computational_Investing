@@ -31,6 +31,14 @@ for row in orders_unique:
 	ls_dates.append(row[0:3])
 
 
+#Remove duplicates from symbols list
+ls_symbols_unique = []
+for sym in ls_symbols:
+	if sym not in ls_symbols_unique:
+		ls_symbols_unique.append(sym)
+
+#print ls_symbols_unique
+
 #Convert date list to list of ints
 ls_date_ints = []
 for i in ls_dates:
@@ -65,9 +73,9 @@ print dt_end
 print ldt_timestamps
 
 
-
 #Use adjusted close
-#Read data into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
+#Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns (remove duplicates from symbols list) and dates as rows
+#This will create our prices array from start_date to end_date
 #Iterate over orders, check prices, update cash($ not invested)
 
 
