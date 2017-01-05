@@ -32,12 +32,11 @@ for row in orders_unique:
 
 
 #Remove duplicates from symbols list
-ls_symbols_unique = []
+ls_sym_unique = []
 for sym in ls_symbols:
-	if sym not in ls_symbols_unique:
-		ls_symbols_unique.append(sym)
+	if sym not in ls_sym_unique:
+		ls_sym_unique.append(sym)
 
-#print ls_symbols_unique
 
 #Convert date list to list of ints
 ls_date_ints = []
@@ -63,19 +62,17 @@ ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
 c_dataobj = da.DataAccess('Yahoo', cachestalltime=0)
 c_dataobj = da.DataAccess('Yahoo')
 ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']
-ldf_data = c_dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)
+ldf_data = c_dataobj.get_data(ldt_timestamps, ls_sym_unique, ls_keys)
 d_data = dict(zip(ls_keys, ldf_data))
 
 
-print ls_symbols
-print dt_start
-print dt_end
-print ldt_timestamps
-
-
 #Use adjusted close
-#Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns (remove duplicates from symbols list) and dates as rows
+#Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #This will create our prices array from start_date to end_date
+prices_array = d_data['actual_close']
+print prices_array[ls_sym_unique[0]]
+
+
 #Iterate over orders, check prices, update cash($ not invested)
 
 
