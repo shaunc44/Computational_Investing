@@ -21,7 +21,6 @@ orders_unique = []
 for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
-
 #print orders_unique
 
 
@@ -44,24 +43,29 @@ for sym in ls_symbols:
 ls_date_ints = []
 for i in ls_dates:
 	ls_date_ints.append(map(int, i))
+#print ls_date_ints
+
+for date in ls_date_ints:
+	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
+	print date
 
 
 #Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
 begin_date = min(ls_date_ints)
 end_date = max(ls_date_ints)
+#print begin_date
 
-print begin_date
 
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Subtract 3 from the start date to get previous adj close
-dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2])
+dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2] )
 print dt_start
 #Add 1 to end date to get adj close price
 dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
 #print ldt_timestamps[9]
 
-ts_date = dt.datetime( dt_start, dt.timedelta(hours=16) )
+#ts_date = dt.datetime( dt_start, dt.timedelta(hours=16) )
 
 
 #pull data from Yahoo Finance
