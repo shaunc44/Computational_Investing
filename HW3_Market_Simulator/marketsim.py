@@ -45,9 +45,12 @@ for i in ls_dates:
 	ls_date_ints.append(map(int, i))
 #print ls_date_ints
 
+ls_dates_ts = []
 for date in ls_date_ints:
 	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
-	print date
+	ls_dates_ts.append(date)
+	#print date
+	#print ls_dates_ts
 
 
 #Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
@@ -59,13 +62,11 @@ end_date = max(ls_date_ints)
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Subtract 3 from the start date to get previous adj close
 dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2] )
-print dt_start
+#print dt_start
 #Add 1 to end date to get adj close price
 dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
-#print ldt_timestamps[9]
-
-#ts_date = dt.datetime( dt_start, dt.timedelta(hours=16) )
+#print ldt_timestamps
 
 
 #pull data from Yahoo Finance
@@ -84,7 +85,7 @@ prices_array = d_data['actual_close']
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
-#Need to compare the date from orders file vs dates in timestamps to run the cash for loop
+#Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
 cash = 1000000
 '''
 for order in orders_unique:
@@ -93,16 +94,16 @@ for order in orders_unique:
 '''
 #prices_array[ls_sym_unique[]]
 
-
-
 '''
 for i in ldt_timestamps:
-	if ldt_timestamps[i] == ls_date_ints[i]:
+	if ldt_timestamps[i] == ls_date_ts[i]:
 		print 'true'
 	else:
 		print 'false'
 '''
 
+if ldt_timestamps[0] == ls_dates_ts[0]:
+	print 'True'
 
 #Create a value array (equal values of all equites you are holding)
 
