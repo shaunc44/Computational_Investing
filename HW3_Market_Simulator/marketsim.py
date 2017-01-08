@@ -21,7 +21,7 @@ orders_unique = []
 for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
-#print orders_unique
+print orders_unique
 
 
 #Create symbols & dates list
@@ -44,6 +44,7 @@ ls_date_ints = []
 for i in ls_dates:
 	ls_date_ints.append(map(int, i))
 #print ls_date_ints
+
 
 ls_dates_ts = []
 for date in ls_date_ints:
@@ -81,7 +82,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 #Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
-#print prices_array
+print prices_array
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
@@ -95,15 +96,20 @@ for order in orders_unique:
 #prices_array[ls_sym_unique[]]
 
 '''
-for i in ldt_timestamps:
-	if ldt_timestamps[i] == ls_date_ts[i]:
-		print 'true'
-	else:
-		print 'false'
+for date_order in ls_dates_ts:
+	for date_nyse in ldt_timestamps:
+		if date_order == date_nyse:
+			for order in orders_unique:
+				if orders_unique[4] = 'Buy':
+					cash = cash - orders_unique[5] * price???
+			print 'true'
+		else:
+			print 'false'
 '''
 
-if ldt_timestamps[0] == ls_dates_ts[0]:
-	print 'True'
+
+#if ldt_timestamps[0] == ls_dates_ts[0]:
+#	print 'True'
 
 #Create a value array (equal values of all equites you are holding)
 
