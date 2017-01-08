@@ -8,6 +8,7 @@ import QSTK.qstkutil.DataAccess as da
 
 
 orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
+#print orders
 
 
 #Create orders list
@@ -25,7 +26,7 @@ print orders_unique
 
 
 #Create symbols & dates list
-ls_symbols = [] #remove duplicate symbols??????
+ls_symbols = []
 ls_dates = []
 for row in orders_unique:
 	ls_symbols.append(row[3])
@@ -43,7 +44,6 @@ for sym in ls_symbols:
 ls_date_ints = []
 for i in ls_dates:
 	ls_date_ints.append(map(int, i))
-#print ls_date_ints
 
 
 ls_dates_ts = []
@@ -63,7 +63,6 @@ end_date = max(ls_date_ints)
 #use NYSE dates function to create array with right number of elements for each date used in test
 #Subtract 3 from the start date to get previous adj close
 dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2] )
-#print dt_start
 #Add 1 to end date to get adj close price
 dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
 ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
@@ -95,7 +94,8 @@ for order in orders_unique:
 '''
 #prices_array[ls_sym_unique[]]
 
-'''
+
+#Maybe put this date comparison inside the orders_unique for loop???
 for date_order in ls_dates_ts:
 	for date_nyse in ldt_timestamps:
 		if date_order == date_nyse:
@@ -105,7 +105,7 @@ for date_order in ls_dates_ts:
 			print 'true'
 		else:
 			print 'false'
-'''
+
 
 
 #if ldt_timestamps[0] == ls_dates_ts[0]:
