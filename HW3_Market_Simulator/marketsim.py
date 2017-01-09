@@ -43,7 +43,7 @@ ls_dates = []
 for row in orders_unique:
 	ls_symbols.append(row[3])
 	ls_dates.append(row[0:3])
-print ls_symbols
+#print ls_symbols
 
 
 #Remove duplicates from symbols list
@@ -127,24 +127,24 @@ for order in orders_unique:
 #Create trades matrix (Pandas DataFrame)
 df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique )
 df_trades.fillna( 0, inplace = True )
-#print df_trades
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
-print df_trades
+#print df_trades
 
 
 date_qty_array = []
 for date, qty in zip(ls_dates_ts, order_qty_ls):
 	date_qty_array.append(date)
 	date_qty_array.append(qty)
-print date_qty_array[2]
+#print date_qty_array[2]
 
 
 
 
 #Iterate over orders file to add values to trades matrix
-count = 0
+count = -1
 for date1 in ldt_timestamps:
 	count += 1
+	#print count
 	for date2, qty, sym in zip( ls_dates_ts, order_qty_ls, ls_symbols ):
 		if date1 == date2:
 			if sym == ls_sym_unique[0]:
@@ -156,6 +156,8 @@ for date1 in ldt_timestamps:
 			else:
 				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = qty
 
+
+#df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 print df_trades
 
 '''
