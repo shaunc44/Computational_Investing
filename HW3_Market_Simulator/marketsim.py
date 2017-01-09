@@ -29,14 +29,7 @@ for sublist in orders_list:
 order_qty_ls = []
 for x in orders_unique:
 	order_qty_ls.append(int(x[5]))
-print order_qty_ls
-
-
-'''
-#Read orders values (ints) into numpy array
-for x in orders_unique:
-	ordersArray = np.array ( () )
-'''
+#print order_qty_ls
 
 
 #Create symbols & dates list
@@ -62,13 +55,26 @@ for i in ls_dates:
 	ls_date_ints.append(map(int, i))
 
 
+#Add 16 hrs to dates timestamps
 ls_dates_ts = []
 for date in ls_date_ints:
 	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
 	ls_dates_ts.append(date)
 	#print date
-print ls_dates_ts[0]
+#print ls_dates_ts[0]
 #print ls_dates_ts
+
+
+'''
+#Create dates & orders list
+dates_orders_ls = []
+for date in ls_dates_ts:
+	for qty in order_qty_ls:
+		print date
+		print qty
+date_qty_array = ls_dates_ts[0].append(order_qty_ls[0])
+print date_qty_array
+'''
 
 
 #Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
@@ -115,33 +121,21 @@ for order in orders_unique:
 #Create trades matrix (Pandas DataFrame)
 zeroArray = np.zeros( (240, 4) )
 df_trades = pd.DataFrame(zeroArray, index = ldt_timestamps, columns = ls_sym_unique)
+#print df_trades
+#df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 print df_trades
 
+
 '''
-#Iterate over orders file
-for date1 in ls_dates_ts:
+#Iterate over orders file to add values to trades matrix
+for date1, qty in ls_dates_ts, order_qty_ls:
+	print date1
+
 	for date2 in ldt_timestamps:
 		if date1 == date2:
 '''
 
 
-#Maybe put this date comparison inside the orders_unique for loop???
-'''
-for date_order in ls_dates_ts:
-	for date_nyse in ldt_timestamps:
-		if date_order == date_nyse:
-			for order in orders_unique:
-				if orders_unique[4] = 'Buy':
-					cash = cash - orders_unique[5] * price???
-			print 'true'
-		else:
-			print 'false'
-'''
-
-
-
-#if ldt_timestamps[0] == ls_dates_ts[0]:
-#	print 'True'
 
 #Create a value array (equal values of all equites you are holding)
 
