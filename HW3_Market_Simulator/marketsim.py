@@ -147,7 +147,8 @@ for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym in zip( ls_dates_ts, order_qty_ls, ls_symbols ):
 		if date1 == date2:
-			df_trades[ls_sym_unique[????]].ix[ldt_timestamps[count]]
+			if sym == 'AAPL':
+				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = qty
 
 
 '''
