@@ -51,7 +51,7 @@ ls_sym_unique = []
 for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
-#print ls_sym_unique
+print ls_sym_unique
 #print ls_dates
 
 
@@ -147,9 +147,16 @@ for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym in zip( ls_dates_ts, order_qty_ls, ls_symbols ):
 		if date1 == date2:
-			if sym == 'AAPL':
+			if sym == ls_sym_unique[0]:
 				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = qty
+			elif sym == ls_sym_unique[1]:
+				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = qty
+			elif sym == ls_sym_unique[2]:
+				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = qty
+			else:
+				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = qty
 
+print df_trades
 
 '''
 for date2 in ldt_timestamps:
