@@ -10,6 +10,11 @@ import QSTK.qstkutil.DataAccess as da
 orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 #print orders
 
+orders_df = pd.read_csv('orders.csv')
+print orders_df
+for i in orders_df:
+	print i
+
 
 #Create orders list
 orders_list = []
@@ -119,8 +124,8 @@ for order in orders_unique:
 
 
 #Create trades matrix (Pandas DataFrame)
-zeroArray = np.zeros( (240, 4) )
-df_trades = pd.DataFrame(zeroArray, index = ldt_timestamps, columns = ls_sym_unique)
+df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique )
+df_trades.fillna( 0, inplace = True )
 #print df_trades
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 print df_trades
@@ -128,17 +133,26 @@ print df_trades
 
 '''
 #Iterate over orders file to add values to trades matrix
-for date1, qty in ls_dates_ts, order_qty_ls:
-	print date1
-
-	for date2 in ldt_timestamps:
+for date1 in ldt_timestamps:
+	for date2 in ls_dates_ts:
 		if date1 == date2:
+			df_date = date2
+			print date1
+'''
+
+
+'''
+for date2 in ldt_timestamps:
+, order_qty_ls:
 '''
 
 
 
-#Create a value array (equal values of all equites you are holding)
 
+
+
+
+#Create a value array (equal values of all equites you are holding)
 
 #marketsim(cash, orders_file)
 
