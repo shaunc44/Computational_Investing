@@ -22,7 +22,7 @@ orders_unique = []
 for sublist in orders_list:
 	if sublist not in orders_unique:
 		orders_unique.append(sublist)
-print orders_unique
+#print orders_unique
 
 
 #Create symbols & dates list
@@ -38,6 +38,7 @@ ls_sym_unique = []
 for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
+print ls_sym_unique
 
 
 #Convert date list to list of ints
@@ -81,7 +82,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 #Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
-print prices_array
+#print prices_array
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
@@ -95,7 +96,14 @@ for order in orders_unique:
 #prices_array[ls_sym_unique[]]
 
 
+#Create trade matrix ***
+zeroArray = np.zeros( (240, 4) )
+#print zeroArray
+df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique)
+
+
 #Maybe put this date comparison inside the orders_unique for loop???
+'''
 for date_order in ls_dates_ts:
 	for date_nyse in ldt_timestamps:
 		if date_order == date_nyse:
@@ -105,6 +113,7 @@ for date_order in ls_dates_ts:
 			print 'true'
 		else:
 			print 'false'
+'''
 
 
 
