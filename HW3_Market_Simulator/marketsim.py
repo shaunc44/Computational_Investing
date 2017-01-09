@@ -38,7 +38,7 @@ ls_sym_unique = []
 for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
-print ls_sym_unique
+#print ls_sym_unique
 
 
 #Convert date list to list of ints
@@ -99,7 +99,8 @@ for order in orders_unique:
 #Create trade matrix ***
 zeroArray = np.zeros( (240, 4) )
 #print zeroArray
-df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique)
+df_trades = pd.DataFrame(zeroArray, index = ldt_timestamps, columns = ls_sym_unique)
+print df_trades
 
 
 #Maybe put this date comparison inside the orders_unique for loop???
