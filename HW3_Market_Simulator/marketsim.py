@@ -25,6 +25,20 @@ for sublist in orders_list:
 #print orders_unique
 
 
+#Add order quantities to list
+order_qty_ls = []
+for x in orders_unique:
+	order_qty_ls.append(int(x[5]))
+print order_qty_ls
+
+
+'''
+#Read orders values (ints) into numpy array
+for x in orders_unique:
+	ordersArray = np.array ( () )
+'''
+
+
 #Create symbols & dates list
 ls_symbols = []
 ls_dates = []
@@ -39,6 +53,7 @@ for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
 #print ls_sym_unique
+#print ls_dates
 
 
 #Convert date list to list of ints
@@ -52,7 +67,8 @@ for date in ls_date_ints:
 	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
 	ls_dates_ts.append(date)
 	#print date
-	#print ls_dates_ts
+print ls_dates_ts[0]
+#print ls_dates_ts
 
 
 #Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
@@ -96,11 +112,17 @@ for order in orders_unique:
 #prices_array[ls_sym_unique[]]
 
 
-#Create trade matrix ***
+#Create trades matrix (Pandas DataFrame)
 zeroArray = np.zeros( (240, 4) )
-#print zeroArray
 df_trades = pd.DataFrame(zeroArray, index = ldt_timestamps, columns = ls_sym_unique)
 print df_trades
+
+'''
+#Iterate over orders file
+for date1 in ls_dates_ts:
+	for date2 in ldt_timestamps:
+		if date1 == date2:
+'''
 
 
 #Maybe put this date comparison inside the orders_unique for loop???
