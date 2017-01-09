@@ -11,9 +11,9 @@ orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 #print orders
 
 orders_df = pd.read_csv('orders.csv')
-print orders_df
-for i in orders_df:
-	print i
+#print orders_df
+#for i in orders_df:
+#	print i
 
 
 #Create orders list
@@ -43,6 +43,7 @@ ls_dates = []
 for row in orders_unique:
 	ls_symbols.append(row[3])
 	ls_dates.append(row[0:3])
+print ls_symbols
 
 
 #Remove duplicates from symbols list
@@ -131,14 +132,22 @@ df_trades.fillna( 0, inplace = True )
 print df_trades
 
 
-'''
+date_qty_array = []
+for date, qty in zip(ls_dates_ts, order_qty_ls):
+	date_qty_array.append(date)
+	date_qty_array.append(qty)
+print date_qty_array[2]
+
+
+
+
 #Iterate over orders file to add values to trades matrix
+count = 0
 for date1 in ldt_timestamps:
-	for date2 in ls_dates_ts:
+	count += 1
+	for date2, qty, sym in zip( ls_dates_ts, order_qty_ls, ls_symbols ):
 		if date1 == date2:
-			df_date = date2
-			print date1
-'''
+			df_trades[ls_sym_unique[????]].ix[ldt_timestamps[count]]
 
 
 '''
