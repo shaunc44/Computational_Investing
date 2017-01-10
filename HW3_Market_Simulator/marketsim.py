@@ -121,14 +121,6 @@ prices_array = d_data['actual_close']
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
-#Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
-cash = 1000000
-'''
-for order in orders_unique:
-	if orders_unique[4] = 'Buy':
-		cash = cash - orders_unique[5] * price???
-'''
-#prices_array[ls_sym_unique[]]
 
 
 #Create trades matrix (Pandas DataFrame)
@@ -170,16 +162,14 @@ for date1 in ldt_timestamps:
 			else:
 				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = -qty
 
-
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
+#print df_trades
+
+
+#Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
+cash = 1000000
+df_trades['Cash'] = range( 1, len( df_trades ) + 1 )
 print df_trades
-
-'''
-for date2 in ldt_timestamps:
-, order_qty_ls:
-'''
-
-
 
 
 
