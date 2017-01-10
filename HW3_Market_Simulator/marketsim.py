@@ -37,6 +37,13 @@ for x in orders_unique:
 #print order_qty_ls
 
 
+#Create list of trades: buy or sell
+ls_trades = []
+for trade in orders_unique:
+	ls_trades.append(trade[4])
+print ls_trades
+
+
 #Create symbols & dates list
 ls_symbols = []
 ls_dates = []
@@ -51,7 +58,7 @@ ls_sym_unique = []
 for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
-print ls_sym_unique
+#print ls_sym_unique
 #print ls_dates
 
 
@@ -139,15 +146,15 @@ for date, qty in zip(ls_dates_ts, order_qty_ls):
 
 
 
-
+'''
 #Iterate over orders file to add values to trades matrix
 count = -1
 for date1 in ldt_timestamps:
 	count += 1
 	#print count
-	for date2, qty, sym in zip( ls_dates_ts, order_qty_ls, ls_symbols ):
+	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, orders_unique ):
 		if date1 == date2:
-			if sym == ls_sym_unique[0]:
+			if sym == ls_sym_unique[0] and trade == 'Buy':
 				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = qty
 			elif sym == ls_sym_unique[1]:
 				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = qty
@@ -155,7 +162,7 @@ for date1 in ldt_timestamps:
 				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = qty
 			else:
 				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = qty
-
+'''
 
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 print df_trades
