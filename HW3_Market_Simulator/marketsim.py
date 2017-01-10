@@ -53,7 +53,7 @@ ls_sym_unique = []
 for sym in ls_symbols:
 	if sym not in ls_sym_unique:
 		ls_sym_unique.append(sym)
-#print ls_sym_unique
+print ls_sym_unique
 #print ls_dates
 
 
@@ -101,7 +101,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
 print prices_array
-print prices_array[ls_sym_unique[1]].ix[ldt_timestamps[1]]
+#print prices_array[ls_sym_unique[1]].ix[ldt_timestamps[1]]
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
@@ -112,6 +112,7 @@ df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique )
 df_trades.fillna( 0, inplace = True )
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 #print df_trades
+#print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
 
 
 date_qty_array = []
@@ -160,13 +161,15 @@ ts_cash = pd.Series( cash_balance, index = ldt_timestamps )
 
 
 #Create running cash total
-for shares, price, cash in zip( df_trades, prices_array, ts_cash ):
-	
+for date, price, cash in zip( df_trades, prices_array, ts_cash ):
+	for i in range(4):
+		if df_trades[ls_sym_unique[i]].ix[ldt_timestamps[date]] > 0:
+			ts_cash[cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[date]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[date]] ) )
+		else:
+			ts_cash[cash] = ( cash_balance + ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[date]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[date]] ) )
 
 
-
-print ts_cash
-
+#print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
 print df_trades
 
 
