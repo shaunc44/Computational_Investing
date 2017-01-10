@@ -10,11 +10,6 @@ import QSTK.qstkutil.DataAccess as da
 orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
 #print orders
 
-orders_df = pd.read_csv('orders.csv')
-#print orders_df
-#for i in orders_df:
-#	print i
-
 
 #Create orders list
 orders_list = []
@@ -78,19 +73,7 @@ for date in ls_date_ints:
 #print ls_dates_ts
 
 
-'''
-#Create dates & orders list
-dates_orders_ls = []
-for date in ls_dates_ts:
-	for qty in order_qty_ls:
-		print date
-		print qty
-date_qty_array = ls_dates_ts[0].append(order_qty_ls[0])
-print date_qty_array
-'''
-
-
-#Build NUMPY ARRAY for these dates, or numpy array with symbols, dates and values ??????????????
+#Store beginning and ending order dates
 begin_date = min(ls_date_ints)
 end_date = max(ls_date_ints)
 #print begin_date
@@ -101,7 +84,7 @@ end_date = max(ls_date_ints)
 dt_start = dt.datetime( begin_date[0], begin_date[1], begin_date[2] )
 #Add 1 to end date to get adj close price
 dt_end = dt.datetime( end_date[0], end_date[1], (end_date[2] + 1) )
-ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))
+ldt_timestamps = du.getNYSEdays( dt_start, dt_end, dt.timedelta(hours=16) )
 #print ldt_timestamps
 
 
@@ -118,6 +101,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
 #print prices_array
+print prices_array[4]
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
@@ -142,7 +126,6 @@ for date, qty in zip(ls_dates_ts, order_qty_ls):
 count = -1
 for date1 in ldt_timestamps:
 	count += 1
-	#print count
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
 		if date1 == date2:
 			if sym == ls_sym_unique[0] and trade == 'Buy':
@@ -162,13 +145,25 @@ for date1 in ldt_timestamps:
 			else:
 				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = -qty
 
-#df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
-#print df_trades
-
 
 #Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
 cash = 1000000
-df_trades['Cash'] = range( 1, len( df_trades ) + 1 )
+df_trades['Cash'] = range( 1, len( df_trades ) + 1)
+#df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
+
+ts_cash = pd.Series( 0.0, index = ldt_timestamps )
+#print ts_cash
+#na_vals = np.arange( len(ldt_timestamps) )
+#print na_vals
+#ts_cash = pd.Series( na_vals, index = ldt_timestamps )
+#ts_cash[4] = 9999
+
+
+
+
+
+print ts_cash
+
 print df_trades
 
 
