@@ -100,8 +100,8 @@ d_data = dict(zip(ls_keys, ldf_data))
 #Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
 #This will create our prices array from start_date to end_date
 prices_array = d_data['actual_close']
-#print prices_array
-print prices_array[4]
+print prices_array
+print prices_array[ls_sym_unique[1]].ix[ldt_timestamps[1]]
 
 
 #Iterate over orders (csv file), check prices (price array), update array of cash ($ not invested)
@@ -147,11 +147,11 @@ for date1 in ldt_timestamps:
 
 
 #Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
-cash = 1000000
+cash_balance = 1000000
 df_trades['Cash'] = range( 1, len( df_trades ) + 1)
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 
-ts_cash = pd.Series( 0.0, index = ldt_timestamps )
+ts_cash = pd.Series( cash_balance, index = ldt_timestamps )
 #print ts_cash
 #na_vals = np.arange( len(ldt_timestamps) )
 #print na_vals
@@ -159,6 +159,9 @@ ts_cash = pd.Series( 0.0, index = ldt_timestamps )
 #ts_cash[4] = 9999
 
 
+#Create running cash total
+for shares, price, cash in zip( df_trades, prices_array, ts_cash ):
+	
 
 
 
