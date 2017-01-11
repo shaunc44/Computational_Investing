@@ -103,17 +103,18 @@ count = -1
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
+		#Enter here the buy sell if stmt to account for multiple trades on same day
 		if date1 == ( date2 and ( date2 - 1 ) ):
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
-				elif sym == ls_sym_unique[i] and trade == 'Sell':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
-		if date1 == date2:
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
+				else:
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
+		elif date1 == date2:
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
-				elif sym == ls_sym_unique[i] and trade == 'Sell':
+				else:
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
 
 
