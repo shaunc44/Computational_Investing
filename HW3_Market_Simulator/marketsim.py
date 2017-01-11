@@ -162,7 +162,7 @@ ts_cash = pd.Series( 0, index = ldt_timestamps )
 #Create running cash total
 cash_balance = 1000000
 count_cash = -1
-for x, y, z in zip( df_trades, prices_array, ts_cash ):
+for x in ldt_timestamps:
 	count_cash += 1
 	for i in range(4):
 		if df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] > 0:
@@ -171,9 +171,9 @@ for x, y, z in zip( df_trades, prices_array, ts_cash ):
 		else:
 			ts_cash[count_cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
 			cash_balance = ts_cash[count_cash]
+	cash_balance = ts_cash[count_cash]
 
 
-#print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
 print df_trades
 print ts_cash
 
