@@ -87,25 +87,14 @@ ldf_data = c_dataobj.get_data(ldt_timestamps, ls_sym_unique, ls_keys)
 d_data = dict(zip(ls_keys, ldf_data))
 
 
-#Read adj close prices into PANDAS dataframe and create daily prices array with symbols as columns and dates as rows
-#This will create our prices array from start_date to end_date
+#Create prices array from start_date to end_date
 prices_array = d_data['actual_close']
-#print prices_array
-#print prices_array[ls_sym_unique[1]].ix[ldt_timestamps[1]]
 
 
 #Create trades matrix (Pandas DataFrame)
-df_trades = pd.DataFrame(index = ldt_timestamps, columns = ls_sym_unique )
+df_trades = pd.DataFrame( index = ldt_timestamps, columns = ls_sym_unique )
 df_trades.fillna( 0, inplace = True )
 #print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
-
-
-'''
-date_qty_array = []
-for date, qty in zip(ls_dates_ts, order_qty_ls):
-	date_qty_array.append(date)
-	date_qty_array.append(qty)
-'''
 
 
 #Iterate over orders file to add values to trades matrix
@@ -138,34 +127,46 @@ ts_cash = pd.Series( 0, index = ldt_timestamps )
 
 #Create running cash total
 cash_balance = 1000000
-count_cash = -1
-for x in ldt_timestamps:
-	count_cash += 1
+for x in range( len(ldt_timestamps) ):
 	for i in range(4):
-		if df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] > 0:
-			ts_cash[count_cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
-			cash_balance = ts_cash[count_cash]
+		if df_trades[ls_sym_unique[i]].ix[ldt_timestamps[x]] > 0:
+			ts_cash[x] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[x]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[x]] ) )
+			cash_balance = ts_cash[x]
 		else:
-			ts_cash[count_cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
-			cash_balance = ts_cash[count_cash]
+			ts_cash[x] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[x]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[x]] ) )
+			cash_balance = ts_cash[x]
 
 
 #Append cash to trades matrix
 df_trades['Cash'] = ts_cash
-
-
 print df_trades
 #print ts_cash
 
 
+#Create array of shares owned at any time
+df_holdings = pd.DataFrame( index = ldt_timestamps, columns = ls_sym_unique )
+df_holdings.fillna( 0, inplace = True )
+
+holdings = 0
+for z in range( len(ldt_timestamps) ):
+	for i in range(4):
+		df_holdings[ls_sym_unique[i]].ix[ldt_timestamps[z]] = df_trades[ls_sym_unique[i]].ix[ldt_timestamps[z]] + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[z-1]]
+
+print df_holdings
 
 
 
+
+#Iterate through shares owned array,check prices, update holding value
 #Create a value array (equal values of all equites you are holding)
 
 
+#Combine value + cash = total fund value
+
 
 #marketsim(cash, orders_file)
+
+
 
 
 
