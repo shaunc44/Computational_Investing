@@ -148,11 +148,10 @@ for date1 in ldt_timestamps:
 
 
 #Need to compare the date from orders file vs dates in timestamps to run the cash for loop **** NEXT STEP
-cash_balance = 1000000
 df_trades['Cash'] = range( 1, len( df_trades ) + 1)
 #df_trades[ls_sym_unique[1]].ix[ldt_timestamps[1]] = 0
 
-ts_cash = pd.Series( 0.0, index = ldt_timestamps )
+ts_cash = pd.Series( 0, index = ldt_timestamps )
 #print ts_cash
 #na_vals = np.arange( len(ldt_timestamps) )
 #print na_vals
@@ -161,15 +160,16 @@ ts_cash = pd.Series( 0.0, index = ldt_timestamps )
 
 
 #Create running cash total
+cash_balance = 1000000
 count_cash = -1
-for date, price, cash in zip( df_trades, prices_array, ts_cash ):
+for x, y, z in zip( df_trades, prices_array, ts_cash ):
 	count_cash += 1
 	for i in range(4):
 		if df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] > 0:
 			ts_cash[count_cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
 			cash_balance = ts_cash[count_cash]
 		else:
-			ts_cash[count_cash] = ( cash_balance + ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
+			ts_cash[count_cash] = ( cash_balance - ( prices_array[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] * df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count_cash]] ) )
 			cash_balance = ts_cash[count_cash]
 
 
