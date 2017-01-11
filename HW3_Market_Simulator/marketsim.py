@@ -27,7 +27,7 @@ for sublist in orders_list:
 order_qty_ls = []
 for x in orders_unique:
 	order_qty_ls.append(int(x[5]))
-#print order_qty_ls
+print order_qty_ls
 
 
 #Create list of trades: buy or sell
@@ -64,7 +64,7 @@ ls_dates_ts = []
 for date in ls_date_ints:
 	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
 	ls_dates_ts.append(date)
-print ls_dates_ts
+#print ls_dates_ts
 
 
 #Store beginning and ending order dates
@@ -98,52 +98,23 @@ df_trades.fillna( 0, inplace = True )
 #print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
 
 
-
-count = -1
-for date1 in ldt_timestamps:
-	count += 1
-	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
-		if date1 == date2:
-			if sym == ls_sym_unique[0] and trade == 'Buy':
-				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[0] and trade == 'Sell':
-				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[1] and trade == 'Buy':
-				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[1] and trade == 'Sell':
-				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[2] and trade == 'Buy':
-				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[2] and trade == 'Sell':
-				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[3] and trade == 'Buy':
-				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = qty
-			else:
-				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = -qty
-'''
 #Iterate over orders file to add # of shares to trades matrix
 count = -1
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
+		if date1 == ( date2 and ( date2 - 1 ) ):
+			for i in range( len(ls_sym_unique) ):
+				if sym == ls_sym_unique[i] and trade == 'Buy':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
+				elif sym == ls_sym_unique[i] and trade == 'Sell':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
 		if date1 == date2:
-			if sym == ls_sym_unique[0] and trade == 'Buy':
-				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[0] and trade == 'Sell':
-				df_trades[ls_sym_unique[0]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[1] and trade == 'Buy':
-				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[1] and trade == 'Sell':
-				df_trades[ls_sym_unique[1]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[2] and trade == 'Buy':
-				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = qty
-			elif sym == ls_sym_unique[2] and trade == 'Sell':
-				df_trades[ls_sym_unique[2]].ix[ldt_timestamps[count]] = -qty
-			elif sym == ls_sym_unique[3] and trade == 'Buy':
-				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = qty
-			else:
-				df_trades[ls_sym_unique[3]].ix[ldt_timestamps[count]] = -qty
-'''
+			for i in range( len(ls_sym_unique) ):
+				if sym == ls_sym_unique[i] and trade == 'Buy':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
+				elif sym == ls_sym_unique[i] and trade == 'Sell':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
 
 
 #Create cash time series
