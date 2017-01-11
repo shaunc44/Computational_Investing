@@ -97,7 +97,7 @@ df_trades.fillna( 0, inplace = True )
 #print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
 
 
-#Iterate over orders file to add values to trades matrix
+#Iterate over orders file to add # of shares to trades matrix
 count = -1
 for date1 in ldt_timestamps:
 	count += 1
@@ -143,14 +143,16 @@ print df_trades
 #print ts_cash
 
 
-#Create array of shares owned at any time
+#Create array of shares owned (holdings) on each date
 df_holdings = pd.DataFrame( index = ldt_timestamps, columns = ls_sym_unique )
 df_holdings.fillna( 0, inplace = True )
-
-holdings = 0
-for z in range( len(ldt_timestamps) ):
+#Set initial holdings on day 0
+for j in range(4):
+	df_holdings[ls_sym_unique[j]].ix[ldt_timestamps[0]] = df_trades[ls_sym_unique[j]].ix[ldt_timestamps[0]]
+#Set holdings on days 1 through 239
+for z in range( len(ldt_timestamps[1:]) ):
 	for i in range(4):
-		df_holdings[ls_sym_unique[i]].ix[ldt_timestamps[z]] = df_trades[ls_sym_unique[i]].ix[ldt_timestamps[z]] + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[z-1]]
+		df_holdings[ls_sym_unique[i]].ix[ldt_timestamps[z+1]] = df_holdings[ls_sym_unique[i]].ix[ldt_timestamps[z]] + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[z+1]]
 
 print df_holdings
 
