@@ -64,7 +64,8 @@ ls_dates_ts = []
 for date in ls_date_ints:
 	date = ( dt.datetime(date[0], date[1], date[2]) + dt.timedelta(hours=16) )
 	ls_dates_ts.append(date)
-#print ls_dates_ts
+#test_date = ls_dates_ts[1]
+#print test_date[-1]
 
 
 #Store beginning and ending order dates
@@ -100,23 +101,25 @@ df_trades.fillna( 0, inplace = True )
 
 #Iterate over orders file to add # of shares to trades matrix
 count = -1
+date3 = null
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
 		#Enter here the buy sell if stmt to account for multiple trades on same day
-		dupl_date = date2
-		if date1 == ( date2 and ( dupl_date ) ):
+		if date1 == ( date2 and ( date3 ) ):
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
 				elif sym == ls_sym_unique[i] and trade == 'Sell':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
-		if date1 == date2:
+		elif date1 == date2:
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
 				elif sym == ls_sym_unique[i] and trade == 'Sell':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
+			#date3 = date2
+			#Switch if stmts and create and statement on the first if stmt ????
 
 
 #Create cash time series
