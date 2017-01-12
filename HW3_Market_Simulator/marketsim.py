@@ -104,7 +104,8 @@ for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
 		#Enter here the buy sell if stmt to account for multiple trades on same day
-		if date1 == ( date2 and ( date2 - 1 ) ):
+		dupl_date = date2
+		if date1 == ( date2 and ( dupl_date ) ):
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
