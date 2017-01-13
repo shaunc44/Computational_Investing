@@ -7,7 +7,7 @@ import QSTK.qstkutil.tsutil as tsu
 import QSTK.qstkutil.DataAccess as da
 
 
-orders = csv.reader(open('orders.csv', 'rU'), delimiter=',')
+orders = csv.reader( open('orders.csv', 'rU'), delimiter=',' )
 
 
 #Create orders list
@@ -137,7 +137,9 @@ for x in range( len(ldt_timestamps) ):
 
 #Append cash to trades matrix
 df_trades['Cash'] = ts_cash
-print df_trades
+#print df_trades
+for i in range( len(ldt_timestamps) ):
+	print df_trades[ls_sym_unique[2]].ix[ldt_timestamps[i]]
 #print ts_cash
 
 
