@@ -101,12 +101,17 @@ df_trades.fillna( 0, inplace = True )
 
 #Iterate over orders file to add # of shares to trades matrix
 count = -1
-date3 = null
+prev_day = 0
+prev_sym = 0
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
 		#Enter here the buy sell if stmt to account for multiple trades on same day
-		if date1 == ( date2 and ( date3 ) ):
+		print "Date 2: ", date2
+		print "Date 3: ", prev_day
+		print "Symbol: ", sym
+		print "Prev Symbol: ", prev_sym
+		if date2 == prev_day and sym == prev_sym:
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
@@ -118,7 +123,9 @@ for date1 in ldt_timestamps:
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
 				elif sym == ls_sym_unique[i] and trade == 'Sell':
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
-			#date3 = date2
+		prev_day = date2
+		prev_sym = sym
+
 			#Switch if stmts and create and statement on the first if stmt ????
 
 
