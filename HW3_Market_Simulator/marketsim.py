@@ -103,20 +103,21 @@ df_trades.fillna( 0, inplace = True )
 count = -1
 prev_day = 0
 prev_sym = 0
+prev_ts = 0
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
 		#Enter here the buy sell if stmt to account for multiple trades on same day
-		print "Date 2: ", date2
-		print "Date 3: ", prev_day
-		print "Symbol: ", sym
-		print "Prev Symbol: ", prev_sym
+		#print "Date 2: ", date2
+		#print "Prev Day: ", prev_day
+		#print "Symbol: ", sym
+		#print "Prev Symbol: ", prev_sym
 		if date2 == prev_day and sym == prev_sym:
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[prev_ts]
 				elif sym == ls_sym_unique[i] and trade == 'Sell':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[prev_ts]
 		elif date1 == date2:
 			for i in range( len(ls_sym_unique) ):
 				if sym == ls_sym_unique[i] and trade == 'Buy':
@@ -125,9 +126,39 @@ for date1 in ldt_timestamps:
 					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
 		prev_day = date2
 		prev_sym = sym
+	prev_ts = date1
 
-			#Switch if stmts and create and statement on the first if stmt ????
 
+'''
+#Iterate over orders file to add # of shares to trades matrix
+count = -1
+prev_day = 0
+prev_sym = 0
+prev_ts = 0
+for date1 in ldt_timestamps:
+	count += 1
+	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
+		#Enter here the buy sell if stmt to account for multiple trades on same day
+		#print "Date 2: ", date2
+		#print "Prev Day: ", prev_day
+		#print "Symbol: ", sym
+		#print "Prev Symbol: ", prev_sym
+		if date2 == prev_day and sym == prev_sym:
+			for i in range( len(ls_sym_unique) ):
+				if sym == ls_sym_unique[i] and trade == 'Buy':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[prev_ts]
+				elif sym == ls_sym_unique[i] and trade == 'Sell':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[prev_ts]
+		elif date1 == date2:
+			for i in range( len(ls_sym_unique) ):
+				if sym == ls_sym_unique[i] and trade == 'Buy':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
+				elif sym == ls_sym_unique[i] and trade == 'Sell':
+					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
+		prev_day = date2
+		prev_sym = sym
+	prev_ts = date1
+'''
 
 #Create cash time series
 ts_cash = pd.Series( 0, index = ldt_timestamps )
