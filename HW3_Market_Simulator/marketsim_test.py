@@ -95,7 +95,7 @@ prices_array = d_data['actual_close']
 #Create trades matrix (Pandas DataFrame)
 df_trades = pd.DataFrame( index = ldt_timestamps, columns = ls_sym_unique )
 df_trades.fillna( 0, inplace = True )
-#print df_trades[ls_sym_unique[0]].ix[ldt_timestamps[0]]
+#print df_trades
 
 
 #Iterate over orders file to add # of shares to trades matrix
@@ -103,20 +103,16 @@ count = -1
 for date1 in ldt_timestamps:
 	count += 1
 	for date2, qty, sym, trade in zip( ls_dates_ts, order_qty_ls, ls_symbols, ls_trades ):
-		#Enter here the buy sell if stmt to account for multiple trades on same day
-		dupl_date = date2
-		if date1 == ( date2 and ( dupl_date ) ):
+		if date2 == date1:
 			for i in range( len(ls_sym_unique) ):
-				if sym == ls_sym_unique[i] and trade == 'Buy':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
-				elif sym == ls_sym_unique[i] and trade == 'Sell':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty + df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count-1]]
-		if date1 == date2:
-			for i in range( len(ls_sym_unique) ):
-				if sym == ls_sym_unique[i] and trade == 'Buy':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
-				elif sym == ls_sym_unique[i] and trade == 'Sell':
-					df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
+				if sym == ls_sym_unique[i] and trade == 'Buy' and df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] != 0:
+						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] + qty
+				elif sym == ls_sym_unique[i] and trade == 'Sell' and df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] != 0:
+						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] - qty
+				elif sym == ls_sym_unique[i] and trade == 'Buy' and df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] == 0:
+						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
+				elif sym == ls_sym_unique[i] and trade == 'Sell' and df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] == 0:
+						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
 
 
 #Create cash time series
@@ -137,10 +133,7 @@ for x in range( len(ldt_timestamps) ):
 
 #Append cash to trades matrix
 df_trades['Cash'] = ts_cash
-#print df_trades
-for i in range( len(ldt_timestamps) ):
-	print df_trades[ls_sym_unique[2]].ix[ldt_timestamps[i]]
-#print ts_cash
+print df_trades
 
 
 #Create array of shares owned (holdings) on each date
