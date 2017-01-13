@@ -90,6 +90,7 @@ d_data = dict(zip(ls_keys, ldf_data))
 
 #Create prices array from start_date to end_date
 prices_array = d_data['actual_close']
+print prices_array
 
 
 #Create trades matrix (Pandas DataFrame)
@@ -113,10 +114,12 @@ for date1 in ldt_timestamps:
 						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = qty
 				elif sym == ls_sym_unique[i] and trade == 'Sell' and df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] == 0:
 						df_trades[ls_sym_unique[i]].ix[ldt_timestamps[count]] = -qty
+#print df_trades
 
 
 #Create cash time series
 ts_cash = pd.Series( 0, index = ldt_timestamps )
+#print ts_cash
 
 
 #Create running cash total
@@ -132,8 +135,9 @@ for x in range( len(ldt_timestamps) ):
 
 
 #Append cash to trades matrix
-df_trades['Cash'] = ts_cash
-print df_trades
+df_trades_w_cash = df_trades
+df_trades_w_cash['Cash'] = ts_cash
+#print df_trades_w_cash
 
 
 #Create array of shares owned (holdings) on each date
@@ -150,9 +154,16 @@ for z in range( len(ldt_timestamps[1:]) ):
 print df_holdings
 
 
-
-
 #Iterate through shares owned array,check prices, update holding value
+#holding_values = np.dot(prices_array, df_holdings)
+#print holding_values
+portfolio_value = pd.Series( 0, index = ldt_timestamps )
+for x, price, holding in zip( range(len(ldt_timestamps)), prices_array, df_holdings ):
+	for z in range( len(ls_sym_unique ) ):
+		portfolio_value[x] = prices_array[ls_sym_unique[z]].ix[ldt_timestamps[x]] * df_holdings[ls_sym_unique[z]].ix[ldt_timestamps[x]]
+
+print portfolio_value
+
 #Create a value array (equal values of all equites you are holding)
 
 
