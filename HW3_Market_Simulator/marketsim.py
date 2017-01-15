@@ -159,6 +159,7 @@ print df_holdings
 #print holding_values
 portfolio_value = pd.Series( 0, index = ldt_timestamps )
 for x, price, holding in zip( range(len(ldt_timestamps)), prices_array, df_holdings ):
+	#portfolio_value[x] = 0
 	for z in range( len(ls_sym_unique ) ):
 		portfolio_value[x] += prices_array[ls_sym_unique[z]].ix[ldt_timestamps[x]] * df_holdings[ls_sym_unique[z]].ix[ldt_timestamps[x]]
 
