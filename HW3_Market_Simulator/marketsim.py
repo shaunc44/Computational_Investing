@@ -5,6 +5,7 @@ import datetime as dt
 import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.tsutil as tsu
 import QSTK.qstkutil.DataAccess as da
+import itertools
 
 
 orders = csv.reader( open('orders.csv', 'rU'), delimiter=',' )
@@ -155,15 +156,20 @@ print df_holdings
 
 
 #Iterate through shares owned array,check prices, update holding value
-#holding_values = np.dot(prices_array, df_holdings)
-#print holding_values
+holding_values = np.multiply( prices_array, df_holdings )
+print np.sum(holding_values)
+print holding_values
+
+'''
 portfolio_value = pd.Series( 0, index = ldt_timestamps )
 for x, price, holding in zip( range(len(ldt_timestamps)), prices_array, df_holdings ):
+	#print holding
 	#portfolio_value[x] = 0
 	for z in range( len(ls_sym_unique ) ):
 		portfolio_value[x] += prices_array[ls_sym_unique[z]].ix[ldt_timestamps[x]] * df_holdings[ls_sym_unique[z]].ix[ldt_timestamps[x]]
 
 print portfolio_value
+'''
 
 #Create a value array (equal values of all equites you are holding)
 
