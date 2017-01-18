@@ -157,8 +157,14 @@ print df_holdings
 
 #Iterate through shares owned array,check prices, update holding value
 holding_values = np.multiply( prices_array, df_holdings )
-print np.sum(holding_values)
+holding_values['TOTAL'] = holding_values.sum( axis=0 )
 print holding_values
+#print holding_values[4].sum()
+
+#for x in range( len( ldt_timestamps) ):
+#	print np.sum(holding_values[x])
+
+
 
 '''
 portfolio_value = pd.Series( 0, index = ldt_timestamps )
