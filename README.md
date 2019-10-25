@@ -13,19 +13,19 @@ online. The instructions below worked for me.
 -----------------------------------------------------------------
 ### INSTALLATION INSTRUCTIONS
 
-1. Go to spotlight search and search for 'terminal'
-
-2. Open the terminal and enter:  
+1. Open the mac terminal and enter:  
 ```	xcode-select --install ```  
 	* A pop-up window will appear asking you about installing tools, choose install tools, wait for install to finish
 
-3. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
+2. Next, download fortran for mac from http://gcc.gnu.org/wiki/GFortranBinaries
 
-4. After the fortran download is complete, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal. Be sure to update the version numbers as new versions are released..
+3. After the fortran download is complete, open the terminal and paste this link with your sytem password and enter the subsequent commands in the terminal. Be sure to update the version numbers as new versions are released..
+
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-#####*The homebrew download will take a while*
+##### *The homebrew download will take a while*
+
 ```
 brew install pkg-config
 ```
@@ -38,14 +38,14 @@ brew install libpng
 ```
 sudo easy_install install pip
 ```
-#####*There will be an error message but dont worry, keep going*
+##### *There will be an error message but dont worry, keep going*
 ```
 sudo easy_install pip
 ```
 ```
 sudo pip install numpy
 ```
-#####*Installs numpy*
+##### *Installs numpy*
 ```
 curl -O https://github.com/QuantSoftware/QuantSoftwareToolkit/releases/download/0.2.8/QSTK-0.2.8.tar.gz
 ```
