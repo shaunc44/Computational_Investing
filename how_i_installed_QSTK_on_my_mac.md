@@ -1,7 +1,8 @@
-##HOW TO INSTALL QSTK ON A MAC
-###Coursera - Computational Investing, Part 1
-###*Dr. Tucker Balch of Georgia Tech*
-####October 30, 2016
+## HOW TO INSTALL QSTK ON A MAC
+### Coursera - Computational Investing, Part 1
+### *Dr. Tucker Balch of Georgia Tech*
+#### October 30, 2016
+
 After perusing many websites I finally discovered a way to install
 QSTK on my Macbook Air (SierraOS).  The instructions found at wiki.quantsoftware
 advise students to shy away from the mac installation and instead
@@ -10,7 +11,8 @@ severely slowed my workflow, therefore I kept trying all of the solutions on fou
 online. The instructions below worked for me.
 
 -----------------------------------------------------------------
-###INSTALLATION INSTRUCTIONS
+### INSTALLATION INSTRUCTIONS
+
 1. Go to spotlight search and search for 'terminal'
 
 2. Open the terminal and enter:  
@@ -59,7 +61,7 @@ sudo pip install -e QSTK-0.2.8/
 python QSTK-0.2.8/Examples/Validation.py
 ```
 
-#####*Your output should look like this:*
+##### *Your output should look like this:*
 ![](https://cloud.githubusercontent.com/assets/7787405/19863916/73b63b38-9f6c-11e6-97ff-ab4bba6a19f3.png)
 
 ```
@@ -77,8 +79,8 @@ python tutorial1.py
 ```
 ls *.pdf
 ```
-#####*Try opening the normalized pdf with:*
+##### *Try opening the normalized pdf with:*
 ```
 open normalized.pdf
 ```
-#####*A graph should open with normalized prices*
+##### *A graph should open with normalized prices*
