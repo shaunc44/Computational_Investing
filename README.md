@@ -28,21 +28,13 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 ```
 brew install pkg-config
-```
-```
 brew install freetype
-```
-```
 brew install libpng
-```
-```
 sudo easy_install install pip
 ```
 ##### *There will be an error message but dont worry, keep going*
 ```
 sudo easy_install pip
-```
-```
 sudo pip install numpy
 ```
 ##### *Installs numpy*
@@ -56,8 +48,6 @@ tar -zxvf QSTK-0.2.8.tar.gz
 #####*Un-tar the packages*
 ```
 sudo pip install -e QSTK-0.2.8/
-```
-```
 python QSTK-0.2.8/Examples/Validation.py
 ```
 
@@ -66,17 +56,9 @@ python QSTK-0.2.8/Examples/Validation.py
 
 ```
 cd QSTK-0.2.8
-```
-```
 cd Examples
-```
-```
 cd Basic
-```
-```
 python tutorial1.py
-```
-```
 ls *.pdf
 ```
 ##### *Try opening the normalized pdf with:*
