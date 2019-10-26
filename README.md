@@ -35,17 +35,20 @@ sudo easy_install install pip
 ##### *There will be an error message but dont worry, keep going*
 ```
 sudo easy_install pip
+```
+
+##### *Installs numpy*
+```
 sudo pip install numpy
 ```
-##### *Installs numpy*
 ```
 curl -O https://github.com/QuantSoftware/QuantSoftwareToolkit/releases/download/0.2.8/QSTK-0.2.8.tar.gz
 ```
-#####*Copy and paste to save time*
+##### *Copy and paste to save time*
 ```
 tar -zxvf QSTK-0.2.8.tar.gz
 ```
-#####*Un-tar the packages*
+##### *Un-tar the packages*
 ```
 sudo pip install -e QSTK-0.2.8/
 python QSTK-0.2.8/Examples/Validation.py
